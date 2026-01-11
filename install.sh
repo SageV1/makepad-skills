@@ -94,8 +94,17 @@ parse_args() {
 check_deps() {
     info "Checking dependencies..."
 
-    if ! command -v git &> /dev/null; then
-        error "git is required but not installed. Please install git first."
+    # Need either curl or git
+    if ! command -v curl &> /dev/null && ! command -v git &> /dev/null; then
+        error "Either curl or git is required. Please install one of them first."
+    fi
+
+    # Need unzip if using curl
+    if command -v curl &> /dev/null && ! command -v unzip &> /dev/null; then
+        if ! command -v git &> /dev/null; then
+            error "unzip is required when using curl. Please install unzip or git."
+        fi
+        warn "unzip not found, will use git instead"
     fi
 
     success "Dependencies OK"
@@ -130,10 +139,26 @@ download_skills() {
     TEMP_DIR=$(mktemp -d)
     trap "rm -rf $TEMP_DIR" EXIT
 
-    git clone --depth 1 --branch "$BRANCH" "$REPO_URL" "$TEMP_DIR/makepad-skills" 2>/dev/null || \
-        error "Failed to clone repository. Check your internet connection."
+    # Try ZIP download first (no git required)
+    local ZIP_URL="https://github.com/ZhangHanDong/makepad-skills/archive/refs/heads/${BRANCH}.zip"
 
-    success "Downloaded successfully"
+    if command -v curl &> /dev/null; then
+        curl -fsSL "$ZIP_URL" -o "$TEMP_DIR/makepad-skills.zip" 2>/dev/null
+        if [[ $? -eq 0 && -f "$TEMP_DIR/makepad-skills.zip" ]]; then
+            unzip -q "$TEMP_DIR/makepad-skills.zip" -d "$TEMP_DIR" 2>/dev/null
+            mv "$TEMP_DIR/makepad-skills-${BRANCH}" "$TEMP_DIR/makepad-skills"
+            success "Downloaded via ZIP"
+            return
+        fi
+    fi
+
+    # Fallback to git clone
+    if command -v git &> /dev/null; then
+        git clone --depth 1 --branch "$BRANCH" "$REPO_URL" "$TEMP_DIR/makepad-skills" 2>/dev/null && \
+            success "Downloaded via git" && return
+    fi
+
+    error "Failed to download. Please check your internet connection."
 }
 
 # Install skills
