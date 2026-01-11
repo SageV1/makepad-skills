@@ -1,5 +1,5 @@
 ---
-name: loading-spinner
+name: makepad-loading-spinner
 author: robius
 source: makepad-docs
 date: 2024-01-01

@@ -1,5 +1,5 @@
 ---
-name: progress-track
+name: makepad-progress-track
 author: robius
 source: makepad-docs
 date: 2024-01-01

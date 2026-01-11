@@ -1,5 +1,5 @@
 ---
-name: callout-tooltip
+name: makepad-callout-tooltip
 author: robius
 source: robrix
 date: 2024-01-01

@@ -1,5 +1,5 @@
 ---
-name: easing-functions
+name: makepad-easing-functions
 author: robius
 source: makepad-docs
 date: 2024-01-01

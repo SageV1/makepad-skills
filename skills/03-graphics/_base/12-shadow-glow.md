@@ -1,5 +1,5 @@
 ---
-name: shadow-glow
+name: makepad-shadow-glow
 author: robius
 source: makepad-docs
 date: 2024-01-01

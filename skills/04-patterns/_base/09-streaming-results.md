@@ -1,5 +1,5 @@
 ---
-name: streaming-results
+name: makepad-streaming-results
 author: robius
 source: moly
 date: 2024-01-01

@@ -1,5 +1,5 @@
 ---
-name: hover-effect
+name: makepad-hover-effect
 author: robius
 source: makepad-docs
 date: 2024-01-01

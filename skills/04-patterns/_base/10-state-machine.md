@@ -1,5 +1,5 @@
 ---
-name: state-machine
+name: makepad-state-machine
 author: robius
 source: moly
 date: 2024-01-01

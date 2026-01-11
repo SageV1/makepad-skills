@@ -1,5 +1,5 @@
 ---
-name: local-persistence
+name: makepad-local-persistence
 author: robius
 source: moly
 date: 2024-01-01

@@ -1,5 +1,5 @@
 ---
-name: sdf-drawing
+name: makepad-sdf-drawing
 author: robius
 source: makepad-docs
 date: 2024-01-01

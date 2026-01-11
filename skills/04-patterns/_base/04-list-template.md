@@ -1,5 +1,5 @@
 ---
-name: list-template
+name: makepad-list-template
 author: robius
 source: robrix
 date: 2024-01-01

@@ -1,5 +1,5 @@
 ---
-name: radio-navigation
+name: makepad-radio-navigation
 author: robius
 source: robrix
 date: 2024-01-01

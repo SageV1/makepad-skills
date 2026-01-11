@@ -1,5 +1,5 @@
 ---
-name: collapsible
+name: makepad-collapsible
 author: robius
 source: robrix
 date: 2024-01-01

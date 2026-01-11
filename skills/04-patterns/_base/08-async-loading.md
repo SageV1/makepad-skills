@@ -1,5 +1,5 @@
 ---
-name: async-loading
+name: makepad-async-loading
 author: robius
 source: robrix
 date: 2024-01-01

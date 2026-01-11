@@ -1,5 +1,5 @@
 ---
-name: tokio-integration
+name: makepad-tokio-integration
 author: robius
 source: robrix
 date: 2024-01-01

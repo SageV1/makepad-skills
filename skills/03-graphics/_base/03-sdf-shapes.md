@@ -1,5 +1,5 @@
 ---
-name: sdf-shapes
+name: makepad-sdf-shapes
 author: robius
 source: makepad-docs
 date: 2024-01-01

@@ -1,5 +1,5 @@
 ---
-name: keyframe-animation
+name: makepad-keyframe-animation
 author: robius
 source: makepad-docs
 date: 2024-01-01

@@ -1,5 +1,5 @@
 ---
-name: disabled-state
+name: makepad-disabled-state
 author: robius
 source: makepad-docs
 date: 2024-01-01

@@ -35,7 +35,7 @@ error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 print_banner() {
     echo ""
     echo -e "${BLUE}╔══════════════════════════════════════════════╗${NC}"
-    echo -e "${BLUE}║${NC}      ${GREEN}Makepad Skills Installer v2.1.0${NC}         ${BLUE}║${NC}"
+    echo -e "${BLUE}║${NC}      ${GREEN}Makepad Skills Installer v2.1.1${NC}         ${BLUE}║${NC}"
     echo -e "${BLUE}║${NC}      Claude Code Skills for Makepad          ${BLUE}║${NC}"
     echo -e "${BLUE}╚══════════════════════════════════════════════╝${NC}"
     echo ""
@@ -244,11 +244,11 @@ print_summary() {
         echo "  See the settings.json snippet above."
         echo ""
     else
-        echo "  To enable auto-evolution hooks:"
-        echo "  $0 --with-hooks --target $TARGET_DIR"
+        echo "  To enable auto-evolution hooks, run:"
+        echo "  curl -fsSL https://raw.githubusercontent.com/ZhangHanDong/makepad-skills/main/install.sh | bash -s -- --with-hooks --target $TARGET_DIR"
         echo ""
     fi
-    echo "  Documentation: https://github.com/project-robius/makepad-skills"
+    echo "  Documentation: https://github.com/ZhangHanDong/makepad-skills"
     echo ""
 }
 

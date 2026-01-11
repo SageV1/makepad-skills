@@ -1,5 +1,5 @@
 ---
-name: lru-view-cache
+name: makepad-lru-view-cache
 author: robius
 source: moly
 date: 2024-01-01

@@ -2,7 +2,7 @@
 
 [English](./README.md) | [中文](./README.zh-CN.md) | [日本語](./README.ja.md)
 
-[![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](./skills/.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](./skills/.claude-plugin/plugin.json)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 用于在 Rust 中使用 [Makepad](https://github.com/makepad/makepad) 框架构建跨平台 UI 应用的 Claude Code Skills。

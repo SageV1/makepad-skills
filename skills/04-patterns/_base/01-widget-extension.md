@@ -1,5 +1,5 @@
 ---
-name: widget-extension
+name: makepad-widget-extension
 author: robius
 source: robrix
 date: 2024-01-01

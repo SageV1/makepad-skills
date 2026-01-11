@@ -1,5 +1,5 @@
 ---
-name: modal-overlay
+name: makepad-modal-overlay
 author: robius
 source: robrix
 date: 2024-01-01

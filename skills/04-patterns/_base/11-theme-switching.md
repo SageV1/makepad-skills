@@ -1,5 +1,5 @@
 ---
-name: theme-switching
+name: makepad-theme-switching
 author: robius
 source: moly
 date: 2024-01-01

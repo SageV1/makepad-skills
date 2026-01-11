@@ -1,5 +1,5 @@
 ---
-name: shader-structure
+name: makepad-shader-structure
 author: robius
 source: makepad-docs
 date: 2024-01-01

@@ -1,5 +1,5 @@
 ---
-name: global-registry
+name: makepad-global-registry
 author: robius
 source: robrix
 date: 2024-01-01

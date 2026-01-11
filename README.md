@@ -2,7 +2,7 @@
 
 [English](./README.md) | [中文](./README.zh-CN.md) | [日本語](./README.ja.md)
 
-[![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](./skills/.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](./skills/.claude-plugin/plugin.json)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 Claude Code skills for building cross-platform UI applications with the [Makepad](https://github.com/makepad/makepad) framework in Rust.
