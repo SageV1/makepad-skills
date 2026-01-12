@@ -53,11 +53,13 @@ Replace `${SKILLS_DIR}` with the actual path to your `.claude/skills` directory.
 | Hook | Trigger | Purpose |
 |------|---------|---------|
 | `pre-tool.sh` | Before Bash/Write/Edit | Detect Makepad version, check project style |
+| `pre-ui-edit.sh` | Before Write/Edit (UI code) | Remind AI to provide complete UI specifications |
 | `post-bash.sh` | After Bash command | Detect compilation errors for self-correction |
 | `session-end.sh` | Session ends | Prompt for evolution review |
 
 ## How It Works
 
 1. **Version Detection** (`pre-tool.sh`): On first tool use, detects Makepad branch from Cargo.toml
-2. **Error Detection** (`post-bash.sh`): Monitors `cargo build/run` output for errors
-3. **Evolution Prompt** (`session-end.sh`): Reminds to capture learnings at session end
+2. **UI Specification Checker** (`pre-ui-edit.sh`): When modifying UI code, checks for complete layout specifications and reminds AI to include all necessary properties (padding, spacing, alignment)
+3. **Error Detection** (`post-bash.sh`): Monitors `cargo build/run` output for errors
+4. **Evolution Prompt** (`session-end.sh`): Reminds to capture learnings at session end

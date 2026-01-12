@@ -7,6 +7,10 @@
           {
             "type": "command",
             "command": "bash .claude/skills/hooks/pre-tool.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/skills/hooks/pre-ui-edit.sh \"$TOOL_NAME\" \"$TOOL_INPUT\""
           }
         ]
       }
