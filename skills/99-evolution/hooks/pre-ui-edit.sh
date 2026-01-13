@@ -3,7 +3,7 @@
 # Author: TigerInYourDream
 # Date: 2026-01-12
 # Purpose: Check UI code completeness and remind to add missing properties
-# Related: 04-patterns/community/TigerInYourDream-ui-complete-specification.md
+# Related: 04-patterns/community/ui-complete-specification.md
 #
 # IMPORTANT: Claude Code passes data via stdin as JSON, not command line args!
 # Data format: {"tool_name": "Edit", "tool_input": {"file_path": "...", "new_string": "..."}}
