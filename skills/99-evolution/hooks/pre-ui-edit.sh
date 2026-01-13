@@ -57,18 +57,23 @@ if [ "$COMPLETENESS" -ge 3 ]; then
 fi
 
 # Build warning message
-MESSAGE="┌─────────────────────────────────────────────────┐\n"
-MESSAGE+="│  📐 UI Specification Check ($COMPLETENESS/5)                │\n"
-MESSAGE+="└─────────────────────────────────────────────────┘\n\n"
-MESSAGE+="UI component missing critical properties:\n\n"
+MESSAGE="\n"
+MESSAGE+="  ╭─────────────────────────────────────────╮\n"
+MESSAGE+="  │  📐 UI Specification Check ($COMPLETENESS/5)          │\n"
+MESSAGE+="  ╰─────────────────────────────────────────╯\n"
+MESSAGE+="\n"
+MESSAGE+="  Missing properties:\n"
+MESSAGE+="\n"
 
-[ "$HAS_WIDTH" -eq 0 ] && MESSAGE+="  • width: Fit / Fill / number\n"
-[ "$HAS_HEIGHT" -eq 0 ] && MESSAGE+="  • height: Fit / Fill / number\n"
-[ "$HAS_PADDING" -eq 0 ] && MESSAGE+="  • padding: { left, right, top, bottom }\n"
-[ "$HAS_TEXT_STYLE" -eq 0 ] && MESSAGE+="  • draw_text: { text_style, color }\n"
-[ "$HAS_WRAP" -eq 0 ] && MESSAGE+="  • wrap: Word / Line / Ellipsis\n"
+[ "$HAS_WIDTH" -eq 0 ] && MESSAGE+="    • width      Fit | Fill | number\n"
+[ "$HAS_HEIGHT" -eq 0 ] && MESSAGE+="    • height     Fit | Fill | number\n"
+[ "$HAS_PADDING" -eq 0 ] && MESSAGE+="    • padding    { left, right, top, bottom }\n"
+[ "$HAS_TEXT_STYLE" -eq 0 ] && MESSAGE+="    • draw_text  { text_style, color }\n"
+[ "$HAS_WRAP" -eq 0 ] && MESSAGE+="    • wrap       Word | Line | Ellipsis\n"
 
-MESSAGE+="\n💡 Complete specs prevent text overlap issues.\n"
+MESSAGE+="\n"
+MESSAGE+="  💡 Add these to prevent text overlap.\n"
+MESSAGE+="\n"
 
 # Output to stderr and exit 2 to block tool execution
 echo -e "$MESSAGE" >&2

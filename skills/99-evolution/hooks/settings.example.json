@@ -2,6 +2,15 @@
   "hooks": {
     "PreToolUse": [
       {
+        "matcher": "Bash|Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/skills/hooks/pre-tool.sh"
+          }
+        ]
+      },
+      {
         "matcher": "Write|Edit|Update",
         "hooks": [
           {
@@ -17,7 +26,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/skills/hooks/post-bash.sh"
+            "command": "bash .claude/skills/hooks/post-bash.sh \"$TOOL_OUTPUT\" \"$EXIT_CODE\""
           }
         ]
       }
