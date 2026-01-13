@@ -18,6 +18,15 @@ Copy the hooks configuration to your project's `.claude/settings.json`:
             "command": "bash ${SKILLS_DIR}/hooks/pre-tool.sh \"$TOOL_NAME\" \"$TOOL_INPUT\""
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit|Update",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${SKILLS_DIR}/hooks/pre-ui-edit.sh"
+          }
+        ]
       }
     ],
     "PostToolUse": [
