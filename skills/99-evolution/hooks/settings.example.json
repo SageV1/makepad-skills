@@ -2,15 +2,11 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash|Write|Edit|Update",
+        "matcher": "Write|Edit|Update",
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/skills/hooks/pre-tool.sh"
-          },
-          {
-            "type": "command",
-            "command": "bash .claude/skills/hooks/pre-ui-edit.sh \"$TOOL_NAME\" \"$TOOL_INPUT\""
+            "command": "bash .claude/skills/hooks/pre-ui-edit.sh"
           }
         ]
       }
@@ -21,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/skills/hooks/post-bash.sh \"$TOOL_OUTPUT\" \"$EXIT_CODE\""
+            "command": "bash .claude/skills/hooks/post-bash.sh"
           }
         ]
       }

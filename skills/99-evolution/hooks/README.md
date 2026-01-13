@@ -2,6 +2,10 @@
 
 This folder contains Claude Code hooks to enable automatic triggering of makepad-evolution features.
 
+## Prerequisites
+
+- `jq` must be installed for JSON parsing
+
 ## Setup
 
 Copy the hooks configuration to your project's `.claude/settings.json`:
@@ -11,33 +15,11 @@ Copy the hooks configuration to your project's `.claude/settings.json`:
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash|Write|Edit",
+        "matcher": "Write|Edit|Update",
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${SKILLS_DIR}/hooks/pre-tool.sh \"$TOOL_NAME\" \"$TOOL_INPUT\""
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ${SKILLS_DIR}/hooks/post-bash.sh \"$TOOL_OUTPUT\" \"$EXIT_CODE\""
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ${SKILLS_DIR}/hooks/session-end.sh"
+            "command": "bash .claude/skills/hooks/pre-ui-edit.sh"
           }
         ]
       }
@@ -46,20 +28,39 @@ Copy the hooks configuration to your project's `.claude/settings.json`:
 }
 ```
 
-Replace `${SKILLS_DIR}` with the actual path to your `.claude/skills` directory.
+**Important**: Claude Code passes data via stdin as JSON, not command line arguments. Do not add `"$TOOL_NAME"` or `"$TOOL_INPUT"` to the command.
 
 ## Hooks Overview
 
 | Hook | Trigger | Purpose |
 |------|---------|---------|
-| `pre-tool.sh` | Before Bash/Write/Edit | Detect Makepad version, check project style |
-| `pre-ui-edit.sh` | Before Write/Edit (UI code) | Remind AI to provide complete UI specifications |
+| `pre-ui-edit.sh` | Before Write/Edit/Update | Check UI code completeness, block if missing critical properties |
 | `post-bash.sh` | After Bash command | Detect compilation errors for self-correction |
 | `session-end.sh` | Session ends | Prompt for evolution review |
 
 ## How It Works
 
-1. **Version Detection** (`pre-tool.sh`): On first tool use, detects Makepad branch from Cargo.toml
-2. **UI Specification Checker** (`pre-ui-edit.sh`): When modifying UI code, checks for complete layout specifications and reminds AI to include all necessary properties (padding, spacing, alignment)
-3. **Error Detection** (`post-bash.sh`): Monitors `cargo build/run` output for errors
-4. **Evolution Prompt** (`session-end.sh`): Reminds to capture learnings at session end
+### UI Specification Checker (`pre-ui-edit.sh`)
+
+When modifying UI code (Button, Label, TextInput, RoundedView), the hook:
+
+1. Reads JSON input from stdin
+2. Extracts `tool_input.new_string` (for Edit) or `tool_input.content` (for Write)
+3. Checks for 5 critical properties: width, height, padding, draw_text, wrap
+4. If completeness < 3/5, outputs warning to stderr and exits with code 2 to block
+
+**Input format** (from Claude Code via stdin):
+```json
+{
+  "tool_name": "Edit",
+  "tool_input": {
+    "file_path": "src/app.rs",
+    "old_string": "...",
+    "new_string": "<Button> { text: \"Click\" }"
+  }
+}
+```
+
+**Exit codes**:
+- `0`: Allow tool execution
+- `2`: Block tool execution and show message to Claude

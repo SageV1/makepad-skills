@@ -1,7 +1,7 @@
 ---
 name: ui-complete-specification
 author: TigerInYourDream
-source: real-world-ai-assisted-ui-development
+source: robrix-matrix-client
 date: 2026-01-12
 tags: [ui, layout, button, spacing, best-practices]
 level: beginner
@@ -31,105 +31,124 @@ The pattern follows a checklist approach: before writing any UI code, ensure all
 
 ## Implementation
 
-### Complete Button Specification
+### Example 1: Reaction Button (from Robrix)
+
+Real-world button with complete specifications from the Robrix Matrix client:
 
 ```rust
 live_design! {
-    MyButton = <Button> {
-        // ✅ Size: Explicit width/height
-        width: Fit           // or Fill, or fixed number
-        height: 40           // fixed height recommended for buttons
+    use link::theme::*;
 
-        // ✅ Internal spacing: Padding INSIDE the element
-        padding: { left: 16, right: 16, top: 8, bottom: 8 }
+    pub ReactionList = {{ReactionList}} {
+        width: Fill,
+        height: Fit,
+        flow: RightWrap,
+        margin: {top: 5.0}
+        padding: {right: 30.0}
 
-        // ✅ External spacing: Margin between elements
-        margin: { left: 8, right: 8 }
+        item: <Button> {
+            width: Fit,
+            height: Fit,
+            padding: 6,
+            // Zero left margin to flush with message text
+            margin: { top: 3, bottom: 3, left: 0, right: 6 },
 
-        // ✅ Text configuration
-        text: "Button Label"
-        draw_text: {
-            text_style: <THEME_FONT_BOLD>{ font_size: 14.0 }
-            color: #ffffff
-            wrap: Line       // Prevent unexpected wrapping
+            draw_bg: {
+                instance reaction_bg_color: #B6BABF
+                instance reaction_border_color: #001A11
+                color_hover: #fef65b
+                hover: 0.0
+                border_size: 1.5
+                border_radius: 3.0
+
+                fn get_color(self) -> vec4 {
+                    return mix(self.reaction_bg_color,
+                              mix(self.reaction_bg_color, self.color_hover, 0.2),
+                              self.hover)
+                }
+            }
+
+            draw_text: {
+                text_style: <REGULAR_TEXT>{font_size: 9},
+                color: #000000
+            }
         }
+    }
+}
+```
 
-        // ✅ Background and styling
+**Key specifications**:
+- ✅ Explicit `width: Fit, height: Fit` for content-sized button
+- ✅ `padding: 6` for internal spacing
+- ✅ Asymmetric `margin` with intentional zero left (design decision documented)
+- ✅ Complete `draw_bg` with border, radius, and hover behavior
+- ✅ `draw_text` with specific font size and color
+
+### Example 2: SSO Button (from Robrix)
+
+Full-width action button with complete layout properties:
+
+```rust
+live_design! {
+    sso_button = <MaskableButton> {
+        width: Fill,
+        height: 40,
+        padding: 10,
+        margin: {top: 10},
+        align: {x: 0.5, y: 0.5},
+
         draw_bg: {
-            color: #2196F3
-            color_hover: #1976D2
-            border_radius: 4.0
+            color: #00D9A3  // COLOR_ACTIVE_PRIMARY
+            mask: 0.0
         }
+
+        draw_text: {
+            color: #FFFFFF  // COLOR_PRIMARY
+            text_style: <REGULAR_TEXT> {}
+        }
+
+        text: "Continue with SSO"
     }
 }
 ```
 
-### Horizontal Button Row
+**Key specifications**:
+- ✅ Fixed `width: Fill, height: 40` for consistent sizing
+- ✅ `padding: 10` for text breathing room
+- ✅ `margin: {top: 10}` for spacing from above elements
+- ✅ `align: {x: 0.5, y: 0.5}` for centered content
+- ✅ Complete `draw_bg` and `draw_text` configuration
+
+### Example 3: Homeserver Selection Button (from Robrix)
+
+Button in a list with complete specifications:
 
 ```rust
 live_design! {
-    ButtonRow = <View> {
-        width: Fill
-        height: Fit
-        flow: Right        // Horizontal layout
-        spacing: 12        // Gap between buttons
-        align: { y: 0.5 }  // Vertically center
-        padding: 16        // Outer padding
+    matrix_option = <RobrixIconButton> {
+        width: Fill,
+        height: Fit,
+        padding: {left: 10, right: 10, top: 8, bottom: 8},
 
-        cancel_btn = <Button> {
-            width: Fit
-            height: 40
-            padding: { left: 16, right: 16 }
-            text: "Cancel"
-            draw_bg: { color: #666, border_radius: 4.0 }
-            draw_text: {
-                text_style: <THEME_FONT_BOLD>{ font_size: 14.0 }
-                wrap: Line
-            }
+        draw_bg: {
+            color: #F5F5F5  // COLOR_BG_DISABLED
         }
 
-        confirm_btn = <Button> {
-            width: Fit
-            height: 40
-            padding: { left: 16, right: 16 }
-            text: "Confirm"
-            draw_bg: { color: #2196F3, border_radius: 4.0 }
-            draw_text: {
-                text_style: <THEME_FONT_BOLD>{ font_size: 14.0 }
-                wrap: Line
-            }
+        draw_text: {
+            color: #000000  // COLOR_TEXT
+            text_style: <REGULAR_TEXT>{font_size: 11}
         }
+
+        text: "● matrix.org"
     }
 }
 ```
 
-### Button with Icon and Text
-
-```rust
-live_design! {
-    IconButton = <Button> {
-        width: Fit
-        height: 40
-        flow: Right        // Icon + text horizontally
-        spacing: 8         // Gap between icon and text
-        padding: { left: 12, right: 16 }
-        align: { y: 0.5 }  // Center icon and text vertically
-
-        icon = <Icon> {
-            width: 20, height: 20
-            draw_icon: { svg_file: dep("crate://self/resources/save.svg") }
-        }
-
-        label = <Label> {
-            text: "Save"
-            draw_text: {
-                text_style: <THEME_FONT_BOLD>{ font_size: 14.0 }
-                wrap: Line
-            }
-        }
-    }
-}
-```
+**Key specifications**:
+- ✅ `width: Fill, height: Fit` for list item behavior
+- ✅ Explicit `padding` on all sides (left, right, top, bottom)
+- ✅ Complete `draw_bg` with background color
+- ✅ `draw_text` with font size specification
 
 ## Usage
 
@@ -255,6 +274,7 @@ This fixes the issue by:
 
 ## References
 
-- Emerged from real-world AI-assisted Makepad UI development
+- Emerged from real-world Makepad UI development in Robrix Matrix client
 - Addresses the "edit loop" problem where iterative fixes fail
 - Based on Makepad layout system best practices
+- Examples extracted from production code: `robrix/src/home/event_reaction_list.rs` and `robrix/src/register/register_screen.rs`
