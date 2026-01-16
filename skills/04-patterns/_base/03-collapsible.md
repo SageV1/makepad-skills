@@ -105,8 +105,10 @@ live_design! {
 
 ```rust
 // Handle toggle in parent
-if let CollapsibleAction::Toggled { now_expanded } = action.cast() {
-    self.ui.view(id!(body)).set_visible(cx, now_expanded);
+for action in actions {
+    if let CollapsibleAction::Toggled { now_expanded } = action.as_widget_action().cast() {
+        self.ui.view(ids!(body)).set_visible(cx, now_expanded);
+    }
 }
 ```
 

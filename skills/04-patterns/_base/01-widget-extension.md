@@ -50,7 +50,7 @@ impl AvatarWidgetRefExt for AvatarRef {
 
 ```rust
 // Now you can call extension methods on any AvatarRef
-self.ui.avatar(id!(user_avatar)).set_user(cx, &user_info);
+self.ui.avatar(ids!(user_avatar)).set_user(cx, &user_info);
 ```
 
 ## When to Use

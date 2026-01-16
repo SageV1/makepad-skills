@@ -68,7 +68,7 @@ my_input = <TextInput> {
 }
 
 // Handle input changes
-if let Some(text) = self.ui.text_input(id!(my_input)).changed(&actions) {
+if let Some(text) = self.ui.text_input(ids!(my_input)).changed(&actions) {
     if let Ok(value) = text.parse::<f64>() {
         self.amount = value;
     }
@@ -229,18 +229,18 @@ Update widget properties at runtime:
 
 ```rust
 // Update text color
-self.ui.label(id!(my_label)).apply_over(cx, live!{
+self.ui.label(ids!(my_label)).apply_over(cx, live!{
     draw_text: { color: #ff0000 }
 });
 
 // Update background
-self.ui.view(id!(my_view)).apply_over(cx, live!{
+self.ui.view(ids!(my_view)).apply_over(cx, live!{
     show_bg: true
     draw_bg: { color: #ffffff }
 });
 
 // Update multiple properties
-self.ui.button(id!(theme_btn)).apply_over(cx, live!{
+self.ui.button(ids!(theme_btn)).apply_over(cx, live!{
     draw_text: { color: (accent_color) }
     draw_bg: { color: (bg_color) }
 });
@@ -254,11 +254,11 @@ self.ui.redraw(cx);
 ```rust
 let colors = self.current_theme.colors();
 
-self.ui.label(id!(title)).apply_over(cx, live!{
+self.ui.label(ids!(title)).apply_over(cx, live!{
     draw_text: { color: (colors.accent) }  // Use parentheses for variables
 });
 
-self.ui.view(id!(card)).apply_over(cx, live!{
+self.ui.view(ids!(card)).apply_over(cx, live!{
     draw_bg: { color: (colors.bg_card) }
 });
 ```
@@ -310,7 +310,7 @@ impl MatchEvent for App {
 
 ```rust
 fn send_request(&self, cx: &mut Cx) {
-    let request_id = live_id!(FetchData);
+    let request_id = live_ids!(FetchData);
     let mut request = HttpRequest::new(url, HttpMethod::POST);
     request.set_header("Content-Type".to_string(), "application/json".to_string());
     request.set_json_body(&data);

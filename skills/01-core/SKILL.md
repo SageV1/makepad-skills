@@ -15,6 +15,7 @@ This category covers the fundamental building blocks of Makepad UI development.
 | [Widgets](./widgets.md) | Common widgets, custom widgets | Building UI components |
 | [Events](./events.md) | Event handling, hit testing, actions | Handling user interaction |
 | [Styling](./styling.md) | Fonts, text styles, SVG icons | Styling text and graphics |
+| [UI Constraints](./_base/08-ui-constraints.md) | Opinionated rules for better UI | Best practices, AI-assisted design |
 
 ## Overview
 

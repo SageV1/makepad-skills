@@ -91,14 +91,16 @@ impl ModalRef {
 
 ```rust
 // Open modal
-self.ui.modal(id!(confirm_dialog)).open(cx);
+self.ui.modal(ids!(confirm_dialog)).open(cx);
 
 // Close modal
-self.ui.modal(id!(confirm_dialog)).close(cx);
+self.ui.modal(ids!(confirm_dialog)).close(cx);
 
 // Handle dismissal
-if let ModalAction::Dismissed = action.cast() {
-    // User clicked outside
+for action in actions {
+    if let ModalAction::Dismissed = action.as_widget_action().cast() {
+        // User clicked outside
+    }
 }
 ```
 

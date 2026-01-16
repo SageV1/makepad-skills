@@ -46,9 +46,9 @@ By default, `AdaptiveView` selects variants based on:
 ```rust
 // Default selector logic
 if cx.display_context.is_desktop() || !cx.display_context.is_screen_size_known() {
-    live_id!(Desktop)
+    live_ids!(Desktop)
 } else {
-    live_id!(Mobile)
+    live_ids!(Mobile)
 }
 ```
 
@@ -63,11 +63,11 @@ impl MatchEvent for App {
         self.ui.adaptive_view(ids!(my_adaptive_view))
             .set_variant_selector(|cx, parent_size| {
                 if cx.display_context.screen_size.x >= 1280.0 {
-                    live_id!(Desktop)
+                    live_ids!(Desktop)
                 } else if cx.display_context.screen_size.x >= 768.0 {
-                    live_id!(Tablet)
+                    live_ids!(Tablet)
                 } else {
-                    live_id!(Mobile)
+                    live_ids!(Mobile)
                 }
             });
     }
@@ -80,9 +80,9 @@ impl MatchEvent for App {
 self.ui.adaptive_view(ids!(content_view))
     .set_variant_selector(|_cx, parent_size| {
         if parent_size.x >= 800.0 {
-            live_id!(Wide)
+            live_ids!(Wide)
         } else {
-            live_id!(Narrow)
+            live_ids!(Narrow)
         }
     });
 ```
@@ -175,7 +175,7 @@ impl MatchEvent for App {
         // Push detail view
         if self.ui.button(ids!(item_button)).clicked(&actions) {
             cx.widget_action(widget_uid, &path,
-                StackNavigationAction::Push(id!(detail_view)));
+                StackNavigationAction::Push(ids!(detail_view)));
         }
 
         // Pop back
@@ -217,7 +217,7 @@ live_design! {
 // Switch pages
 fn switch_to_settings(&mut self, cx: &mut Cx) {
     self.view.page_flip(ids!(page_flip))
-        .set_active_page(cx, id!(settings_page));
+        .set_active_page(cx, ids!(settings_page));
 }
 ```
 

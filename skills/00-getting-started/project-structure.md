@@ -550,24 +550,24 @@ impl MatchEvent for App {
     fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
         // Handle login actions
         if let Some(LoginAction::Success(user)) = actions.find_widget_action(
-            self.ui.widget(id!(login_screen)).widget_uid()
+            self.ui.widget(ids!(login_screen)).widget_uid()
         ).cast() {
             self.state.user = Some(user);
             self.navigate_to(cx, Screen::Home);
         }
 
         // Handle navigation
-        if self.ui.button(id!(settings_btn)).clicked(actions) {
+        if self.ui.button(ids!(settings_btn)).clicked(actions) {
             self.navigate_to(cx, Screen::Settings);
         }
 
-        if self.ui.button(id!(back_btn)).clicked(actions) {
+        if self.ui.button(ids!(back_btn)).clicked(actions) {
             self.navigate_to(cx, Screen::Home);
         }
 
         // Handle logout
         if let Some(SettingsAction::Logout) = actions.find_widget_action(
-            self.ui.widget(id!(settings_screen)).widget_uid()
+            self.ui.widget(ids!(settings_screen)).widget_uid()
         ).cast() {
             self.state.user = None;
             self.navigate_to(cx, Screen::Login);
@@ -580,20 +580,20 @@ impl App {
         self.state.current_screen = screen;
 
         // Update visibility
-        self.ui.view(id!(login_screen)).set_visible(screen == Screen::Login);
-        self.ui.view(id!(home_screen)).set_visible(screen == Screen::Home);
-        self.ui.view(id!(settings_screen)).set_visible(screen == Screen::Settings);
+        self.ui.view(ids!(login_screen)).set_visible(screen == Screen::Login);
+        self.ui.view(ids!(home_screen)).set_visible(screen == Screen::Home);
+        self.ui.view(ids!(settings_screen)).set_visible(screen == Screen::Settings);
 
         self.ui.redraw(cx);
     }
 
     fn show_modal(&mut self, cx: &mut Cx) {
-        self.ui.view(id!(modal_overlay)).set_visible(true);
+        self.ui.view(ids!(modal_overlay)).set_visible(true);
         self.ui.redraw(cx);
     }
 
     fn hide_modal(&mut self, cx: &mut Cx) {
-        self.ui.view(id!(modal_overlay)).set_visible(false);
+        self.ui.view(ids!(modal_overlay)).set_visible(false);
         self.ui.redraw(cx);
     }
 

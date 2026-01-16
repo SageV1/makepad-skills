@@ -98,12 +98,12 @@ For lazy-loaded pages, use `PageFlip`:
 ```rust
 if let Some(selected) = tabs.selected(cx, actions) {
     let page_id = match selected {
-        0 => id!(home),
-        1 => id!(settings),
-        2 => id!(profile),
+        0 => ids!(home),
+        1 => ids!(settings),
+        2 => ids!(profile),
         _ => return,
     };
-    self.ui.page_flip(id!(pages)).set_active_page(cx, page_id);
+    self.ui.page_flip(ids!(pages)).set_active_page(cx, page_id);
 }
 ```
 

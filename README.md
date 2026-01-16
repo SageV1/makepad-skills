@@ -2,7 +2,7 @@
 
 [English](./README.md) | [中文](./README.zh-CN.md) | [日本語](./README.ja.md)
 
-[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](./skills/.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-2.1.3-blue.svg)](./skills/.claude-plugin/plugin.json)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 Claude Code skills for building cross-platform UI applications with the [Makepad](https://github.com/makepad/makepad) framework in Rust.
@@ -27,7 +27,36 @@ These skills are extracted from patterns used in Robrix and Moly.
 
 ## Installation
 
-### Quick Install (Recommended)
+### Plugin Marketplace (Recommended)
+
+Install via Claude Code's plugin marketplace:
+
+```bash
+# Step 1: Add marketplace
+/plugin marketplace add ZhangHanDong/makepad-skills
+
+# Step 2: Install plugins (choose one or more)
+/plugin install makepad-full@makepad-skills-marketplace        # All skills
+/plugin install makepad-core@makepad-skills-marketplace        # Core + getting started
+/plugin install makepad-graphics@makepad-skills-marketplace    # Graphics & shaders
+/plugin install makepad-patterns@makepad-skills-marketplace    # Production patterns
+/plugin install makepad-deployment@makepad-skills-marketplace  # Platform packaging
+/plugin install makepad-reference@makepad-skills-marketplace   # API docs & troubleshooting
+```
+
+**Available Plugins:**
+
+| Plugin | Description |
+|--------|-------------|
+| `makepad-full` | Complete package with all skills |
+| `makepad-core` | Getting started, layout, widgets, events |
+| `makepad-graphics` | SDF drawing, shaders, animations |
+| `makepad-patterns` | Async, state machines, overlays, lists |
+| `makepad-deployment` | Android, iOS, WASM packaging |
+| `makepad-reference` | API docs, troubleshooting, code quality |
+| `makepad-evolution` | Self-evolution templates and hooks |
+
+### Shell Script Install
 
 Use the install script for one-command setup:
 

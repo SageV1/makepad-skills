@@ -2,7 +2,7 @@
 
 [English](./README.md) | [中文](./README.zh-CN.md) | [日本語](./README.ja.md)
 
-[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](./skills/.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-2.1.3-blue.svg)](./skills/.claude-plugin/plugin.json)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 Rust の [Makepad](https://github.com/makepad/makepad) フレームワークを使用してクロスプラットフォーム UI アプリケーションを構築するための Claude Code Skills です。
@@ -27,7 +27,36 @@ Rust の [Makepad](https://github.com/makepad/makepad) フレームワークを�
 
 ## インストール
 
-### クイックインストール（推奨）
+### プラグインマーケットプレイス（推奨）
+
+Claude Code のプラグインマーケットプレイス経由でインストール：
+
+```bash
+# ステップ 1：マーケットプレイスを追加
+/plugin marketplace add ZhangHanDong/makepad-skills
+
+# ステップ 2：プラグインをインストール（1つまたは複数選択）
+/plugin install makepad-full@makepad-skills-marketplace        # 全スキル
+/plugin install makepad-core@makepad-skills-marketplace        # コア + 入門
+/plugin install makepad-graphics@makepad-skills-marketplace    # グラフィックス & シェーダー
+/plugin install makepad-patterns@makepad-skills-marketplace    # プロダクションパターン
+/plugin install makepad-deployment@makepad-skills-marketplace  # プラットフォームパッケージング
+/plugin install makepad-reference@makepad-skills-marketplace   # API ドキュメント & トラブルシューティング
+```
+
+**利用可能なプラグイン：**
+
+| プラグイン | 説明 |
+|-----------|------|
+| `makepad-full` | 全スキルを含む完全パッケージ |
+| `makepad-core` | 入門、レイアウト、ウィジェット、イベント |
+| `makepad-graphics` | SDF 描画、シェーダー、アニメーション |
+| `makepad-patterns` | 非同期、ステートマシン、オーバーレイ、リスト |
+| `makepad-deployment` | Android、iOS、WASM パッケージング |
+| `makepad-reference` | API ドキュメント、トラブルシューティング、コード品質 |
+| `makepad-evolution` | 自己進化テンプレートとフック |
+
+### スクリプトインストール
 
 インストールスクリプトでワンコマンドセットアップ：
 

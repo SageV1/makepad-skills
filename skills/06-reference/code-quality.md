@@ -82,7 +82,7 @@ Redraw calls after state changes are intentional:
 ```rust
 // ❌ DON'T remove redraw thinking it's automatic:
 self.counter += 1;
-self.ui.label(id!(counter)).set_text(cx, &format!("{}", self.counter));
+self.ui.label(ids!(counter)).set_text(cx, &format!("{}", self.counter));
 self.ui.redraw(cx);  // KEEP THIS
 ```
 
@@ -204,12 +204,12 @@ Within same scope:
 
 ```rust
 // ✅ CAN simplify:
-self.ui.label(id!(my_label)).set_text(cx, "Hello");
-self.ui.label(id!(my_label)).set_visible(true);
-self.ui.label(id!(my_label)).redraw(cx);
+self.ui.label(ids!(my_label)).set_text(cx, "Hello");
+self.ui.label(ids!(my_label)).set_visible(true);
+self.ui.label(ids!(my_label)).redraw(cx);
 
 // ✅ TO:
-let label = self.ui.label(id!(my_label));
+let label = self.ui.label(ids!(my_label));
 label.set_text(cx, "Hello");
 label.set_visible(true);
 label.redraw(cx);

@@ -96,12 +96,12 @@ impl MatchEvent for App {
 
     fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
         // Handle button clicks
-        if self.ui.button(id!(refresh_btn)).clicked(&actions) {
+        if self.ui.button(ids!(refresh_btn)).clicked(&actions) {
             submit_request(AppRequest::FetchUsers);
         }
 
-        if self.ui.button(id!(send_btn)).clicked(&actions) {
-            let content = self.ui.text_input(id!(message_input)).text();
+        if self.ui.button(ids!(send_btn)).clicked(&actions) {
+            let content = self.ui.text_input(ids!(message_input)).text();
             submit_request(AppRequest::SendMessage {
                 room_id: self.current_room.clone(),
                 content,
@@ -118,7 +118,7 @@ impl MatchEvent for App {
                         self.update_user_list(cx);
                     }
                     AppResponse::MessageSent(Ok(())) => {
-                        self.ui.text_input(id!(message_input)).set_text(cx, "");
+                        self.ui.text_input(ids!(message_input)).set_text(cx, "");
                     }
                     AppResponse::MessageSent(Err(e)) => {
                         show_error(cx, e);

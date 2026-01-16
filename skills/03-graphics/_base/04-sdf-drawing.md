@@ -75,6 +75,50 @@ fn pixel(self) -> vec4 {
 }
 ```
 
+<!-- Evolution: 2026-01-12 | source: makepad-component/tooltip | author: @claude -->
+### CRITICAL: Triangle Winding Order for Fill
+
+**Problem**: Triangle fills correctly in some directions but not others.
+
+**Cause**: SDF `fill()` requires consistent winding order. Triangles must be drawn in a specific direction (typically starting from the "tip" going clockwise) to fill properly.
+
+**Solution**: Always draw triangles starting from the tip/apex, then go clockwise around the base:
+
+```rust
+// Example: Arrow triangles pointing in 4 directions
+// ALL start from tip, then clockwise around base
+
+// Arrow pointing DOWN (tip at bottom)
+sdf.move_to(cx, tip_y);                    // Start at tip
+sdf.line_to(cx - half_w, base_y);          // Go to left base
+sdf.line_to(cx + half_w, base_y);          // Go to right base
+sdf.close_path();
+sdf.fill(color);
+
+// Arrow pointing UP (tip at top)
+sdf.move_to(cx, tip_y);                    // Start at tip
+sdf.line_to(cx + half_w, base_y);          // Go to right base (clockwise)
+sdf.line_to(cx - half_w, base_y);          // Go to left base
+sdf.close_path();
+sdf.fill(color);
+
+// Arrow pointing RIGHT (tip at right)
+sdf.move_to(tip_x, cy);                    // Start at tip
+sdf.line_to(base_x, cy + half_w);          // Go to bottom base (clockwise)
+sdf.line_to(base_x, cy - half_w);          // Go to top base
+sdf.close_path();
+sdf.fill(color);
+
+// Arrow pointing LEFT (tip at left)
+sdf.move_to(tip_x, cy);                    // Start at tip
+sdf.line_to(base_x, cy - half_w);          // Go to top base (clockwise)
+sdf.line_to(base_x, cy + half_w);          // Go to bottom base
+sdf.close_path();
+sdf.fill(color);
+```
+
+**Key insight**: The winding must be clockwise relative to the screen (Y increases downward). If your triangle doesn't fill, reverse the order of the last two points.
+
 ## Combining Shapes
 
 ```rust
@@ -92,6 +136,42 @@ fn pixel(self) -> vec4 {
     return sdf.result;
 }
 ```
+
+<!-- Evolution: 2026-01-12 | source: makepad-component/tooltip | author: @claude -->
+### Avoiding Gaps Between Connected Shapes
+
+**Problem**: When drawing a box with an attached triangle (like tooltip arrow), there's a visible gap/seam between them.
+
+**Cause**: Anti-aliasing and floating-point precision cause thin gaps at shape boundaries.
+
+**Solution**: Use overlap - extend the triangle's base into the box by 1-2 pixels:
+
+```rust
+fn pixel(self) -> vec4 {
+    let sdf = Sdf2d::viewport(self.pos * self.rect_size);
+    let overlap = 2.0;  // Overlap to avoid gaps
+
+    // Draw rounded box (leaving space for arrow)
+    let box_height = self.rect_size.y - arrow_depth;
+    sdf.box(0., 0., self.rect_size.x, box_height, radius);
+    sdf.fill_keep(bg_color);
+
+    // Draw arrow with base INSIDE the box (overlap)
+    let base_y = box_height - overlap;  // Base extends INTO box
+    let tip_y = self.rect_size.y;
+
+    sdf.move_to(cx, tip_y);
+    sdf.line_to(cx - arrow_half, base_y);
+    sdf.line_to(cx + arrow_half, base_y);
+    sdf.close_path();
+    sdf.fill_keep(bg_color);
+
+    sdf.stroke(border_color, 1.0);
+    return sdf.result;
+}
+```
+
+**Key insight**: The overlap ensures the shapes "merge" visually. Use 1-2 pixels overlap for clean joins.
 
 ## Orientation-Switchable Shape
 

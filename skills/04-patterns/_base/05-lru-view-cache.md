@@ -80,7 +80,7 @@ impl Widget for ViewDeck {
 
 ```rust
 // Switch to a room view (auto-creates if needed, evicts old if full)
-self.ui.view_deck(id!(chat_deck)).switch_to(cx, room_id);
+self.ui.view_deck(ids!(chat_deck)).switch_to(cx, room_id);
 ```
 
 ## When to Use

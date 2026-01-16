@@ -95,7 +95,7 @@ let items = vec![
     ItemData { title: "Item 1".into(), subtitle: "Description 1".into() },
     ItemData { title: "Item 2".into(), subtitle: "Description 2".into() },
 ];
-self.ui.item_list(id!(my_list)).set_items(cx, items);
+self.ui.item_list(ids!(my_list)).set_items(cx, items);
 ```
 
 ## When to Use

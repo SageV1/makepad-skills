@@ -11,6 +11,7 @@ This category provides reference materials for debugging, code quality, and adva
 
 | Topic | File | Use When |
 |-------|------|----------|
+| [API Documentation](./api-docs.md) | Official docs index, quick API reference | Finding detailed API info |
 | [Troubleshooting](./troubleshooting.md) | Common errors and fixes | Build fails, runtime errors |
 | [Code Quality](./code-quality.md) | Makepad-aware refactoring | Simplifying code safely |
 | [Adaptive Layout](./adaptive-layout.md) | Desktop/mobile responsive | Cross-platform layouts |
@@ -40,6 +41,7 @@ log!("State: {} / {}", self.counter, self.is_loading);
 
 ## Resources
 
+- [Makepad Official Docs](https://publish.obsidian.md/makepad-docs/) - Obsidian-based documentation
 - [Makepad Repository](https://github.com/makepad/makepad)
 - [Robrix](https://github.com/project-robius/robrix) - Production reference
 - [Moly](https://github.com/moxin-org/moly) - Production reference

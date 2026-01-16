@@ -509,11 +509,11 @@ live_design! {
 // Rust - populate items
 impl Widget for MyList {
     fn draw_walk(&mut self, cx: &mut Cx2d, scope: &mut Scope, walk: Walk) -> DrawStep {
-        let portal_list = self.view.portal_list(id!(list));
+        let portal_list = self.view.portal_list(ids!(list));
 
         for i in 0..1000 {
-            let item = portal_list.item(cx, id!(Item), i);
-            item.label(id!(label)).set_text(cx, &format!("Item {}", i));
+            let item = portal_list.item(cx, ids!(Item), i);
+            item.label(ids!(label)).set_text(cx, &format!("Item {}", i));
             item.draw_all(cx, &mut Scope::empty());
         }
 
@@ -547,7 +547,7 @@ live_design! {
 }
 
 // Switch page
-self.view.page_flip(id!(flip)).set_active_page(cx, id!(page2));
+self.view.page_flip(ids!(flip)).set_active_page(cx, ids!(page2));
 ```
 
 ---
@@ -657,9 +657,9 @@ live_design! {
 
 // Populate tree
 fn populate_tree(&mut self, cx: &mut Cx) {
-    let tree = self.view.file_tree(id!(tree));
-    tree.set_folder_node(cx, live_id!(root), 0, "Root", false);
-    tree.set_file_node(cx, live_id!(file1), live_id!(root), "file.rs");
+    let tree = self.view.file_tree(ids!(tree));
+    tree.set_folder_node(cx, live_ids!(root), 0, "Root", false);
+    tree.set_file_node(cx, live_ids!(file1), live_ids!(root), "file.rs");
     // ...
 }
 ```

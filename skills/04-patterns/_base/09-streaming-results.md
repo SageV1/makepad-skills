@@ -104,7 +104,7 @@ impl SearchWidget {
 
 ```rust
 // Start search when text changes
-if let Some(query) = self.ui.text_input(id!(search_input)).changed(&actions) {
+if let Some(query) = self.ui.text_input(ids!(search_input)).changed(&actions) {
     self.start_search(cx, query);
 }
 ```

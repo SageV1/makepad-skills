@@ -434,7 +434,7 @@ Rotate programmatically:
 
 ```rust
 // Rotate icon 90 degrees (PI/2 radians)
-self.ui.icon(id!(arrow_icon)).apply_over(cx, live! {
+self.ui.icon(ids!(arrow_icon)).apply_over(cx, live! {
     draw_icon: { rotation_angle: 1.5708 }
 });
 self.ui.redraw(cx);
@@ -451,7 +451,7 @@ impl MyWidget {
             live!(svg_file: (ICON_HEART_OUTLINE))
         };
 
-        self.view.icon(id!(fav_icon)).apply_over(cx, icon);
+        self.view.icon(ids!(fav_icon)).apply_over(cx, icon);
         self.view.redraw(cx);
     }
 }

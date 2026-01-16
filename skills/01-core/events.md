@@ -23,7 +23,7 @@ impl MatchEvent for App {
 
         // Handle custom action
         for action in actions {
-            if let MyWidgetAction::ValueChanged(val) = action.cast() {
+            if let MyWidgetAction::ValueChanged(val) = action.as_widget_action().cast() {
                 self.handle_value_change(cx, val);
             }
         }
@@ -147,16 +147,16 @@ impl MatchEvent for App {
     fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
         // Method 1: cast from widget action
         for action in actions {
-            if let MyWidgetAction::Clicked = action.cast() {
+            if let MyWidgetAction::Clicked = action.as_widget_action().cast() {
                 self.handle_click(cx);
             }
         }
 
-        // Method 2: check specific widget
-        if let Some(action) = self.ui.widget(id!(my_widget)).actions(actions) {
-            match action.cast() {
+        // Method 2: find action from specific widget
+        if let Some(item) = actions.find_widget_action(self.ui.widget(ids!(my_widget)).widget_uid()) {
+            match item.cast_ref() {
                 MyWidgetAction::ValueChanged(val) => {
-                    self.value = val;
+                    self.value = *val;
                 }
                 _ => {}
             }
@@ -171,17 +171,17 @@ impl MatchEvent for App {
 impl MatchEvent for App {
     fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
         // Single button click
-        if self.ui.button(id!(submit_btn)).clicked(&actions) {
+        if self.ui.button(ids!(submit_btn)).clicked(&actions) {
             self.submit_form(cx);
         }
 
         // Button pressed state
-        if self.ui.button(id!(hold_btn)).pressed(&actions) {
+        if self.ui.button(ids!(hold_btn)).pressed(&actions) {
             self.on_hold(cx);
         }
 
         // Multiple buttons
-        for (i, btn_id) in [id!(btn1), id!(btn2), id!(btn3)].iter().enumerate() {
+        for (i, btn_id) in [ids!(btn1), ids!(btn2), ids!(btn3)].iter().enumerate() {
             if self.ui.button(*btn_id).clicked(&actions) {
                 self.handle_button(cx, i);
             }
@@ -225,20 +225,20 @@ impl MatchEvent for App {
 impl MatchEvent for App {
     fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
         // Text changed
-        if let Some(text) = self.ui.text_input(id!(search_input)).changed(&actions) {
+        if let Some(text) = self.ui.text_input(ids!(search_input)).changed(&actions) {
             self.search(cx, &text);
         }
 
         // Enter pressed
-        if self.ui.text_input(id!(search_input)).returned(&actions).is_some() {
+        if self.ui.text_input(ids!(search_input)).returned(&actions).is_some() {
             self.execute_search(cx);
         }
 
         // Focus gained/lost
-        if self.ui.text_input(id!(input)).focus(&actions) {
+        if self.ui.text_input(ids!(input)).focus(&actions) {
             self.show_keyboard(cx);
         }
-        if self.ui.text_input(id!(input)).focus_lost(&actions) {
+        if self.ui.text_input(ids!(input)).focus_lost(&actions) {
             self.hide_keyboard(cx);
         }
     }

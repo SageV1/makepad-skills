@@ -35,7 +35,7 @@ error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 print_banner() {
     echo ""
     echo -e "${BLUE}╔══════════════════════════════════════════════╗${NC}"
-    echo -e "${BLUE}║${NC}      ${GREEN}Makepad Skills Installer v2.1.1${NC}         ${BLUE}║${NC}"
+    echo -e "${BLUE}║${NC}      ${GREEN}Makepad Skills Installer v2.1.3${NC}         ${BLUE}║${NC}"
     echo -e "${BLUE}║${NC}      Claude Code Skills for Makepad          ${BLUE}║${NC}"
     echo -e "${BLUE}╚══════════════════════════════════════════════╝${NC}"
     echo ""

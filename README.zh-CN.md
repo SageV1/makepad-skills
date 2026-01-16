@@ -2,7 +2,7 @@
 
 [English](./README.md) | [中文](./README.zh-CN.md) | [日本語](./README.ja.md)
 
-[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](./skills/.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-2.1.3-blue.svg)](./skills/.claude-plugin/plugin.json)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 用于在 Rust 中使用 [Makepad](https://github.com/makepad/makepad) 框架构建跨平台 UI 应用的 Claude Code Skills。
@@ -27,7 +27,36 @@
 
 ## 安装
 
-### 快速安装（推荐）
+### 插件市场安装（推荐）
+
+通过 Claude Code 的插件市场安装：
+
+```bash
+# 第一步：添加市场
+/plugin marketplace add ZhangHanDong/makepad-skills
+
+# 第二步：安装插件（选择一个或多个）
+/plugin install makepad-full@makepad-skills-marketplace        # 全部技能
+/plugin install makepad-core@makepad-skills-marketplace        # 核心 + 入门
+/plugin install makepad-graphics@makepad-skills-marketplace    # 图形 & 着色器
+/plugin install makepad-patterns@makepad-skills-marketplace    # 生产模式
+/plugin install makepad-deployment@makepad-skills-marketplace  # 平台打包
+/plugin install makepad-reference@makepad-skills-marketplace   # API 文档 & 问题排查
+```
+
+**可用插件：**
+
+| 插件 | 说明 |
+|------|------|
+| `makepad-full` | 包含所有技能的完整包 |
+| `makepad-core` | 入门、布局、组件、事件 |
+| `makepad-graphics` | SDF 绘图、着色器、动画 |
+| `makepad-patterns` | 异步、状态机、弹窗、列表 |
+| `makepad-deployment` | Android、iOS、WASM 打包 |
+| `makepad-reference` | API 文档、问题排查、代码质量 |
+| `makepad-evolution` | 自我进化模板和 hooks |
+
+### 脚本安装
 
 使用安装脚本一键完成：
 

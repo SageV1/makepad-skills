@@ -186,10 +186,10 @@ error[E0599]: no method named `rounded_view` found for struct `WidgetRef`
 **Fix**: Use `view()` for all View-based widgets:
 ```rust
 // Bad
-self.ui.rounded_view(id!(my_panel))
+self.ui.rounded_view(ids!(my_panel))
 
 // Good
-self.ui.view(id!(my_panel))
+self.ui.view(ids!(my_panel))
 ```
 
 ---
@@ -256,7 +256,7 @@ if let Some(item) = item_to_toggle {
 // Bad - borrow conflict in action handling
 for (i, card_id) in card_ids.iter().enumerate() {
     let card = self.ui.view(*card_id);
-    if card.button(id!(fav_btn)).clicked(&actions) {
+    if card.button(ids!(fav_btn)).clicked(&actions) {
         self.toggle_favorite(&currencies[i].code);  // Conflict!
     }
 }
@@ -268,7 +268,7 @@ let mut toggle_code: Option<String> = None;
     for (i, card_id) in card_ids.iter().enumerate() {
         if i < sorted_currencies.len() {
             let card = self.ui.view(*card_id);
-            if card.button(id!(fav_btn)).clicked(&actions) {
+            if card.button(ids!(fav_btn)).clicked(&actions) {
                 toggle_code = Some(sorted_currencies[i].code.to_string());
                 break;
             }
@@ -344,7 +344,7 @@ padding: 16
 **Fix**: Use `apply_over()` for instance variables:
 ```rust
 // Bad - doesn't work for instance variables
-self.draw_bg.set_uniform(cx, id!(progress), &[0.5]);
+self.draw_bg.set_uniform(cx, ids!(progress), &[0.5]);
 
 // Good - use apply_over for instance variables
 self.draw_bg.apply_over(cx, live! {
@@ -405,7 +405,7 @@ self.ui.redraw(cx);
 
 ### Widget Not Found
 
-**Symptom**: `self.ui.label(id!(my_label))` returns empty widget.
+**Symptom**: `self.ui.label(ids!(my_label))` returns empty widget.
 
 **Causes**:
 
@@ -416,8 +416,8 @@ self.ui.redraw(cx);
 **Fix**:
 ```rust
 // If widget is nested
-let parent = self.ui.view(id!(parent_view));
-let label = parent.label(id!(my_label));
+let parent = self.ui.view(ids!(parent_view));
+let label = parent.label(ids!(my_label));
 
 // Or use path
 self.ui.label(ids!(parent_view.my_label))
@@ -435,13 +435,13 @@ self.ui.label(ids!(parent_view.my_label))
 fn fetch_data(&mut self, cx: &mut Cx) {
     let url = "https://api.example.com/data".to_string();
     let request = HttpRequest::new(url, HttpMethod::GET);
-    cx.http_request(live_id!(my_request), request);  // Use live_id!
+    cx.http_request(live_ids!(my_request), request);  // Use live_id!
 }
 
 // Response - check same ID
 fn handle_network_responses(&mut self, cx: &mut Cx, responses: &NetworkResponsesEvent) {
     for event in responses {
-        if event.request_id == live_id!(my_request) {  // Same ID
+        if event.request_id == live_ids!(my_request) {  // Same ID
             match &event.response {
                 NetworkResponse::HttpResponse(response) => {
                     if let Some(body) = response.get_string_body() {
@@ -497,11 +497,11 @@ impl MatchEvent for App {
 self.ui.redraw(cx);
 
 // Good - redraw specific widget
-self.ui.label(id!(my_label)).redraw(cx);
+self.ui.label(ids!(my_label)).redraw(cx);
 
 // Good - batch updates then redraw once
 self.update_multiple_labels(cx);
-self.ui.view(id!(labels_container)).redraw(cx);
+self.ui.view(ids!(labels_container)).redraw(cx);
 ```
 
 ---
@@ -514,7 +514,7 @@ self.ui.view(id!(labels_container)).redraw(cx);
 ```rust
 // Bad - multiple apply_over calls
 for item in items {
-    self.ui.label(id!(label)).apply_over(cx, live!{
+    self.ui.label(ids!(label)).apply_over(cx, live!{
         draw_text: { color: (color) }
     });
 }
@@ -715,6 +715,98 @@ fn navigate_to(&mut self, cx: &mut Cx, screen: Screen) {
 
 ---
 
+## Overlay/Popup Issues
+
+<!-- Evolution: 2026-01-12 | source: makepad-component/tooltip | author: @claude -->
+### Overlay Position Wrong on First Show
+
+**Symptom**: Popup/tooltip appears at wrong position initially, then jumps to correct position.
+
+**Cause**: Overlay size is unknown until after first draw. Position calculation uses `popup_size = 0`, resulting in wrong position.
+
+**Solution**: Draw off-screen first to measure, then redraw at correct position:
+
+```rust
+fn draw_popup_overlay(&mut self, cx: &mut Cx2d, scope: &mut Scope) {
+    self.draw_list.begin_overlay_reuse(cx);
+    let pass_size = cx.current_pass_size();
+    cx.begin_sized_turtle(pass_size, Layout::flow_overlay());
+
+    // First frame: size is 0, draw off-screen to measure
+    let is_measuring = self.popup_size.x == 0.0;
+    let pos = if is_measuring {
+        DVec2 { x: -10000.0, y: -10000.0 }  // Off-screen
+    } else {
+        self.calculate_position(anchor, pass_size)
+    };
+
+    // Draw popup at position
+    let mut walk = popup.walk(cx);
+    walk.abs_pos = Some(pos);
+    let _ = popup.draw_walk(cx, scope, walk);
+
+    // After draw, check if size changed
+    let new_size = popup.area().rect(cx).size;
+    if (new_size.x - self.popup_size.x).abs() > 1.0 {
+        self.popup_size = new_size;
+        cx.redraw_all();  // Trigger immediate redraw
+    }
+
+    cx.end_pass_sized_turtle();
+    self.draw_list.end(cx);
+}
+```
+
+**Key insight**: Use `cx.redraw_all()` (not just `self.redraw(cx)`) to ensure immediate redraw without waiting for next event.
+
+---
+
+### SDF Triangle Not Filling
+
+**Symptom**: Triangle path is drawn but `fill()` produces no result or only fills some triangles.
+
+**Cause**: SDF fill requires clockwise winding order. Counter-clockwise triangles won't fill.
+
+**Solution**: Draw all triangles starting from tip, going clockwise:
+
+```rust
+// WRONG - may not fill depending on direction
+sdf.move_to(left_x, base_y);
+sdf.line_to(right_x, base_y);
+sdf.line_to(center_x, tip_y);
+sdf.close_path();
+sdf.fill(color);
+
+// CORRECT - always start from tip, go clockwise
+sdf.move_to(center_x, tip_y);      // Start at tip
+sdf.line_to(right_x, base_y);       // Clockwise to right base
+sdf.line_to(left_x, base_y);        // Continue to left base
+sdf.close_path();
+sdf.fill(color);
+```
+
+See [SDF Drawing - Triangle Winding Order](../03-graphics/_base/04-sdf-drawing.md#critical-triangle-winding-order-for-fill) for detailed examples.
+
+---
+
+### Gap/Seam Between Box and Arrow
+
+**Symptom**: Thin white line visible where tooltip arrow meets the box.
+
+**Cause**: Anti-aliasing and floating-point precision at shape boundaries.
+
+**Solution**: Extend arrow base into box by 1-2 pixels (overlap):
+
+```rust
+let overlap = 2.0;
+let base_y = box_bottom - overlap;  // Arrow base inside box
+sdf.move_to(cx, tip_y);
+sdf.line_to(cx - half, base_y);
+sdf.line_to(cx + half, base_y);
+```
+
+---
+
 ## Debugging Tips
 
 ### Enable Debug Output
@@ -738,7 +830,7 @@ impl MatchEvent for App {
     fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
         log!("Actions received: {}", actions.len());
 
-        if self.ui.button(id!(my_btn)).clicked(&actions) {
+        if self.ui.button(ids!(my_btn)).clicked(&actions) {
             log!("Button clicked!");
         }
     }
@@ -768,3 +860,6 @@ impl MatchEvent for App {
 | Tooltip off screen | No edge detection | Implement position fallback |
 | Tooltip flickers | Only HoverIn handled | Handle HoverIn + HoverOver |
 | Tooltip zero size | Getting size before text | Set text first, then get size |
+| Overlay position wrong | Size unknown on first draw | Draw off-screen first, use `cx.redraw_all()` |
+| Triangle not filling | Wrong winding order | Draw from tip, go clockwise |
+| Gap between shapes | Float precision | Use 1-2px overlap at joints |

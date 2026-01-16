@@ -36,6 +36,7 @@ Proven patterns for building robust Makepad applications.
 |---------|-------------|
 | [Tokio Integration](_base/13-tokio-integration.md) | Async runtime architecture |
 | [Callout Tooltip](_base/14-callout-tooltip.md) | Context-aware tooltips |
+| [Redraw Optimization](_base/15-redraw-optimization.md) | Efficient redraw patterns |
 
 ## Community Patterns
 
@@ -62,6 +63,7 @@ To contribute your own pattern, use the template at [99-evolution/templates/patt
 - **Large lists**: Use [List Template](_base/04-list-template.md)
 - **Heavy views**: Use [LRU View Cache](_base/05-lru-view-cache.md)
 - **Background work**: Use [Tokio Integration](_base/13-tokio-integration.md)
+- **Avoid unnecessary redraws**: Use [Redraw Optimization](_base/15-redraw-optimization.md)
 
 ## References
 

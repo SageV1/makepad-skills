@@ -89,15 +89,15 @@ impl App {
             draw_bg: { color: (colors.bg_primary) }
         });
 
-        self.ui.view(id!(card)).apply_over(cx, live!{
+        self.ui.view(ids!(card)).apply_over(cx, live!{
             draw_bg: { color: (colors.bg_card) }
         });
 
-        self.ui.label(id!(title)).apply_over(cx, live!{
+        self.ui.label(ids!(title)).apply_over(cx, live!{
             draw_text: { color: (colors.accent) }
         });
 
-        self.ui.label(id!(subtitle)).apply_over(cx, live!{
+        self.ui.label(ids!(subtitle)).apply_over(cx, live!{
             draw_text: { color: (colors.text_secondary) }
         });
 
@@ -111,7 +111,7 @@ impl MatchEvent for App {
     }
 
     fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
-        if self.ui.button(id!(theme_btn)).clicked(&actions) {
+        if self.ui.button(ids!(theme_btn)).clicked(&actions) {
             self.current_theme = self.current_theme.next();
             self.apply_theme(cx);
         }

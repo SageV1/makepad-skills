@@ -1,0 +1,85 @@
+{
+  "name": "makepad-skills-marketplace",
+  "owner": {
+    "name": "Robius",
+    "url": "https://github.com/project-robius"
+  },
+  "metadata": {
+    "description": "Claude Code Skills for building cross-platform UI applications with Makepad framework in Rust",
+    "version": "2.1.3",
+    "repository": "https://github.com/ZhangHanDong/makepad-skills"
+  },
+  "plugins": [
+    {
+      "name": "makepad-core",
+      "description": "Core Makepad skills: getting started, layout, widgets, events, styling, and UI constraints",
+      "source": "./skills",
+      "strict": false,
+      "skills": [
+        "./00-getting-started",
+        "./01-core"
+      ]
+    },
+    {
+      "name": "makepad-graphics",
+      "description": "Graphics and animation skills: SDF drawing, shaders, gradients, transitions, and visual effects",
+      "source": "./skills",
+      "strict": false,
+      "skills": [
+        "./03-graphics"
+      ]
+    },
+    {
+      "name": "makepad-patterns",
+      "description": "Production patterns: async loading, state machines, modal overlays, list templates, and more",
+      "source": "./skills",
+      "strict": false,
+      "skills": [
+        "./04-patterns"
+      ]
+    },
+    {
+      "name": "makepad-deployment",
+      "description": "Deployment skills: packaging for Android, iOS, WebAssembly, and desktop platforms",
+      "source": "./skills",
+      "strict": false,
+      "skills": [
+        "./05-deployment"
+      ]
+    },
+    {
+      "name": "makepad-reference",
+      "description": "Reference materials: API documentation, troubleshooting, code quality, and adaptive layouts",
+      "source": "./skills",
+      "strict": false,
+      "skills": [
+        "./06-reference"
+      ]
+    },
+    {
+      "name": "makepad-evolution",
+      "description": "Self-evolution system: templates, hooks, and contribution guidelines for extending skills",
+      "source": "./skills",
+      "strict": false,
+      "skills": [
+        "./99-evolution"
+      ]
+    },
+    {
+      "name": "makepad-full",
+      "description": "Complete Makepad skills package: all categories including core, graphics, patterns, deployment, and reference",
+      "source": "./skills",
+      "strict": false,
+      "skills": [
+        "./00-getting-started",
+        "./01-core",
+        "./02-components",
+        "./03-graphics",
+        "./04-patterns",
+        "./05-deployment",
+        "./06-reference",
+        "./99-evolution"
+      ]
+    }
+  ]
+}

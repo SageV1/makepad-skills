@@ -37,10 +37,12 @@ live_design! {
                 default: off,
                 off = {
                     from: {all: Forward {duration: 0.2}}
+                    redraw: true  // Force redraw during animation
                     apply: { draw_bg: {pressed: 0.0} }
                 }
                 on = {
                     from: {all: Snap}
+                    redraw: true  // Force redraw during animation
                     apply: { draw_bg: {pressed: 1.0} }
                 }
             }
@@ -57,6 +59,32 @@ live_design! {
 | `Snap` | Instant change (no animation) |
 | `Loop {duration: 1.0, end: 1.0}` | Continuous looping animation |
 | `Reverse {duration: 0.15}` | Reverse direction animation |
+
+## Easing Functions
+
+| Easing | Description |
+|--------|-------------|
+| (none) | Linear interpolation (default) |
+| `ease: ExpDecay {d1: 0.96, d2: 0.97}` | Exponential decay for natural spring-like motion |
+
+**ExpDecay example:**
+```rust
+active = {
+    default: on
+    off = {
+        from: {all: Forward {duration: 0.2}}
+        ease: ExpDecay {d1: 0.96, d2: 0.97}
+        redraw: true
+        apply: { draw_bg: {active: 0.0} }
+    }
+    on = {
+        from: {all: Forward {duration: 0.2}}
+        ease: ExpDecay {d1: 0.98, d2: 0.95}
+        redraw: true
+        apply: { draw_bg: {active: 1.0} }
+    }
+}
+```
 
 ## Triggering Animations
 
@@ -105,6 +133,8 @@ impl MyWidget {
 1. **Check must_redraw()** - Only redraw when animator needs it
 2. **Keep durations short** - 0.1-0.3s for hover, 0.2-0.4s for transitions
 3. **Snap for immediate** - Use Snap when instant response needed
+4. **Use redraw: true** - Add `redraw: true` to states that need continuous drawing during animation (e.g., rotation, complex transitions)
+5. **ExpDecay for natural motion** - Use `ease: ExpDecay` for spring-like, organic animations
 
 ## When to Use
 
