@@ -1,0 +1,41 @@
+{
+  "name": "makepad-skills",
+  "version": "2.0.0",
+  "description": "Comprehensive Makepad UI framework assistant with auto-routing, widget patterns, shaders, animations, and production-ready Robius patterns from Robrix/Moly codebases",
+  "skills": "./skills/",
+  "hooks": "./.claude/hooks/",
+  "settings": "./.claude/settings.json",
+  "author": {
+    "name": "ZhangHanDong",
+    "url": "https://github.com/ZhangHanDong"
+  },
+  "repository": "https://github.com/ZhangHanDong/makepad-skills",
+  "homepage": "https://github.com/ZhangHanDong/makepad-skills",
+  "license": "MIT",
+  "keywords": [
+    "makepad",
+    "rust",
+    "ui",
+    "gui",
+    "cross-platform",
+    "shader",
+    "widget",
+    "live-design",
+    "animation",
+    "robius",
+    "robrix",
+    "moly",
+    "tokio",
+    "async",
+    "mobile",
+    "desktop",
+    "wasm",
+    "android",
+    "ios",
+    "layout",
+    "event",
+    "action",
+    "font",
+    "typography"
+  ]
+}
