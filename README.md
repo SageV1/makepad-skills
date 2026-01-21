@@ -2,7 +2,7 @@
 
 [English](./README.md) | [中文](./README.zh-CN.md) | [日本語](./README.ja.md)
 
-[![Version](https://img.shields.io/badge/version-2.1.3-blue.svg)](./skills/.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](./skills/.claude-plugin/plugin.json)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 Agent skills for building cross-platform UI applications with the [Makepad](https://github.com/makepad/makepad) framework in Rust.
@@ -121,18 +121,30 @@ your-project/
 │   └── skills/
 │       ├── .claude-plugin/
 │       │   └── plugin.json
-│       ├── 00-getting-started/
-│       ├── 01-core/
-│       ├── 02-components/
-│       ├── 03-graphics/
-│       │   ├── _base/          # Official skills (atomic)
-│       │   └── community/      # Community contributions
-│       ├── 04-patterns/
-│       │   ├── _base/          # Official patterns (atomic)
-│       │   └── community/      # Community contributions
-│       ├── 05-deployment/
-│       ├── 06-reference/
-│       ├── 99-evolution/
+│       │
+│       ├── # === Core Skills (16) ===
+│       ├── makepad-basics/
+│       ├── makepad-dsl/
+│       ├── makepad-layout/
+│       ├── makepad-widgets/
+│       ├── makepad-event-action/
+│       ├── makepad-animation/
+│       ├── makepad-shaders/
+│       ├── makepad-platform/
+│       ├── makepad-font/
+│       ├── makepad-splash/
+│       ├── robius-app-architecture/
+│       ├── robius-widget-patterns/
+│       ├── robius-event-action/
+│       ├── robius-state-management/
+│       ├── robius-matrix-integration/
+│       ├── molykit/
+│       │
+│       ├── # === Extended Skills (3) ===
+│       ├── makepad-deployment/
+│       ├── makepad-reference/
+│       │
+│       ├── evolution/          # Self-evolution system
 │       │   └── templates/      # Contribution templates
 │       └── CONTRIBUTING.md
 ├── src/
@@ -148,16 +160,15 @@ See [Claude Code Skills documentation](https://docs.anthropic.com/en/docs/claude
 v2.1 introduces an **atomic skill structure** designed for collaborative development:
 
 ```
-04-patterns/
+robius-widget-patterns/
 ├── SKILL.md              # Index file
 ├── _base/                # Official patterns (numbered, atomic)
 │   ├── 01-widget-extension.md
 │   ├── 02-modal-overlay.md
 │   ├── ...
-│   └── 14-callout-tooltip.md
+│   └── 18-drag-drop-reorder.md
 └── community/            # Your contributions
-    ├── README.md
-    └── {github-handle}-{pattern-name}.md
+    └── {descriptive-pattern-name}.md
 ```
 
 **Benefits:**
@@ -185,14 +196,14 @@ The self-evolution feature allows you to capture patterns discovered during your
 #### Enable Self-Evolution Hooks (Optional)
 
 ```bash
-# Copy hooks from 99-evolution to your project
-cp -r your-project/.claude/skills/99-evolution/hooks your-project/.claude/skills/hooks
+# Copy hooks from evolution to your project
+cp -r your-project/.claude/skills/evolution/hooks your-project/.claude/skills/hooks
 
 # Make hooks executable
 chmod +x your-project/.claude/skills/hooks/*.sh
 
 # Add hooks config to your .claude/settings.json
-# See skills/99-evolution/hooks/settings.example.json for the configuration
+# See skills/evolution/hooks/settings.example.json for the configuration
 ```
 
 #### Manual Pattern Creation
@@ -204,20 +215,20 @@ Claude: I'll create a pattern using the template...
 ```
 
 Claude will:
-1. Use the template from `99-evolution/templates/pattern-template.md`
-2. Create file at `04-patterns/community/{your-handle}-drag-drop-reorder.md`
+1. Use the template from `evolution/templates/pattern-template.md`
+2. Create file at `robius-widget-patterns/community/{descriptive-pattern-name}.md`
 3. Fill in the frontmatter and content
 
 ### Community Contribution Guide
 
 #### Contributing Patterns
 
-1. **Create your pattern file**:
-   ```
-   04-patterns/community/{github-handle}-{pattern-name}.md
-   ```
+1. **Create your pattern file** in the appropriate robius-* skill's community directory:
+   - Widget patterns → `robius-widget-patterns/community/`
+   - State patterns → `robius-state-management/community/`
+   - Async patterns → `robius-app-architecture/community/`
 
-2. **Use the template**: Copy from `99-evolution/templates/pattern-template.md`
+2. **Use the template**: Copy from `evolution/templates/pattern-template.md`
 
 3. **Required frontmatter**:
    ```yaml
@@ -237,19 +248,19 @@ Claude will:
 
 1. **Create your effect file**:
    ```
-   03-graphics/community/{github-handle}-{effect-name}.md
+   makepad-shaders/community/{github-handle}-{effect-name}.md
    ```
 
-2. **Use the template**: Copy from `99-evolution/templates/shader-template.md`
+2. **Use the template**: Copy from `evolution/templates/shader-template.md`
 
 #### Contributing Error Solutions
 
 1. **Create troubleshooting entry**:
    ```
-   06-reference/troubleshooting/{error-name}.md
+   makepad-reference/troubleshooting/{error-name}.md
    ```
 
-2. **Use the template**: Copy from `99-evolution/templates/troubleshooting-template.md`
+2. **Use the template**: Copy from `evolution/templates/troubleshooting-template.md`
 
 #### Syncing with Upstream
 
@@ -270,96 +281,92 @@ High-quality community contributions may be promoted to `_base/`:
 - Community feedback is positive
 - Credit preserved via `author` field
 
-## Skills Overview (v2.1 Atomic Structure)
+## Skills Overview (v3.0 Flat Structure)
 
-### [00-getting-started](./skills/00-getting-started/SKILL.md) - Project Setup
+### Core Skills (16)
 
-| File | Description | When to Use |
-|------|-------------|-------------|
-| [init.md](./skills/00-getting-started/init.md) | Project scaffolding | "Create a new Makepad app" |
-| [project-structure.md](./skills/00-getting-started/project-structure.md) | Directory organization | "How should I organize my project?" |
+#### Makepad Core (10 Skills)
 
-### [01-core](./skills/01-core/SKILL.md) - Core Development
+| Skill | Description | When to Use |
+|-------|-------------|-------------|
+| [makepad-basics](./skills/makepad-basics/) | App structure, `live_design!`, `app_main!` | "Create a new Makepad app" |
+| [makepad-dsl](./skills/makepad-dsl/) | DSL syntax, inheritance, prototypes | "How to define widgets in DSL" |
+| [makepad-layout](./skills/makepad-layout/) | Flow, sizing, spacing, alignment | "Center a widget", "Arrange elements" |
+| [makepad-widgets](./skills/makepad-widgets/) | Common widgets, custom widgets | "Create a button", "Build a form" |
+| [makepad-event-action](./skills/makepad-event-action/) | Event handling, actions | "Handle click events" |
+| [makepad-animation](./skills/makepad-animation/) | Animator, states, transitions | "Add hover animation" |
+| [makepad-shaders](./skills/makepad-shaders/) | Shaders, SDF, gradients, visual effects | "Custom visual effects" |
+| [makepad-platform](./skills/makepad-platform/) | Platform support | "Build for Android/iOS" |
+| [makepad-font](./skills/makepad-font/) | Font, text, typography | "Change font, text styling" |
+| [makepad-splash](./skills/makepad-splash/) | Splash scripting language | "Dynamic UI scripting" |
 
-| File | Description | When to Use |
-|------|-------------|-------------|
-| [layout.md](./skills/01-core/layout.md) | Flow, sizing, spacing, alignment | "Arrange UI elements" |
-| [widgets.md](./skills/01-core/widgets.md) | Common widgets, custom widgets | "How do I create a button?" |
-| [events.md](./skills/01-core/events.md) | Event handling, hit testing | "Handle click events" |
-| [styling.md](./skills/01-core/styling.md) | Fonts, text styles, SVG icons | "Change font size", "Add icons" |
+#### Robius Patterns (5 Skills)
 
-### [02-components](./skills/02-components/SKILL.md) - Widget Gallery
+| Skill | Description | When to Use |
+|-------|-------------|-------------|
+| [robius-app-architecture](./skills/robius-app-architecture/) | Tokio, async/sync patterns | "Structure an async app" |
+| [robius-widget-patterns](./skills/robius-widget-patterns/) | Reusable widgets, `apply_over` | "Create reusable components" |
+| [robius-event-action](./skills/robius-event-action/) | Custom actions, `MatchEvent` | "Custom event handling" |
+| [robius-state-management](./skills/robius-state-management/) | AppState, persistence | "Save/load app state" |
+| [robius-matrix-integration](./skills/robius-matrix-integration/) | Matrix SDK integration | "Chat client features" |
 
-All built-in widgets reference (from ui_zoo): Buttons, TextInput, Sliders, Checkboxes, Labels, Images, ScrollView, PortalList, PageFlip, and more.
+#### MolyKit (1 Skill)
 
-### [03-graphics](./skills/03-graphics/SKILL.md) - Graphics & Animation (Atomic)
+| Skill | Description | When to Use |
+|-------|-------------|-------------|
+| [molykit](./skills/molykit/) | AI chat, SSE streaming, `BotClient` | "AI chat integration" |
 
-14 individual skills in `_base/`:
+### Extended Skills (3)
 
-| Category | Skills |
-|----------|--------|
-| Shader Basics | `01-shader-structure`, `02-shader-math` |
-| SDF Drawing | `03-sdf-shapes`, `04-sdf-drawing`, `05-progress-track` |
-| Animation | `06-animator-basics`, `07-easing-functions`, `08-keyframe-animation`, `09-loading-spinner` |
-| Visual Effects | `10-hover-effect`, `11-gradient-effects`, `12-shadow-glow`, `13-disabled-state`, `14-toggle-checkbox` |
+**Note:** Production patterns are now integrated into robius-* skills:
+- Widget patterns (11) → `robius-widget-patterns/_base/`
+- State patterns (5) → `robius-state-management/_base/`
+- Async patterns (3) → `robius-app-architecture/_base/`
 
-Plus `community/` for your custom effects.
-
-### [04-patterns](./skills/04-patterns/SKILL.md) - Production Patterns (Atomic)
-
-14 individual patterns in `_base/`:
-
-| Category | Patterns |
-|----------|----------|
-| Widget Patterns | `01-widget-extension`, `02-modal-overlay`, `03-collapsible`, `04-list-template`, `05-lru-view-cache`, `06-global-registry`, `07-radio-navigation` |
-| Data Patterns | `08-async-loading`, `09-streaming-results`, `10-state-machine`, `11-theme-switching`, `12-local-persistence` |
-| Advanced | `13-tokio-integration`, `14-callout-tooltip` |
-
-Plus `community/` for your custom patterns.
-
-### [05-deployment](./skills/05-deployment/SKILL.md) - Build & Package
+#### [makepad-deployment](./skills/makepad-deployment/SKILL.md) - Build & Package
 
 Build for desktop (Linux, Windows, macOS), mobile (Android, iOS), and web (WebAssembly).
 
-### [06-reference](./skills/06-reference/SKILL.md) - Reference Materials
+#### [makepad-reference](./skills/makepad-reference/SKILL.md) - Reference Materials
 
 | File | Description | When to Use |
 |------|-------------|-------------|
-| [troubleshooting.md](./skills/06-reference/troubleshooting.md) | Common errors and fixes | "Apply error: no matching field" |
-| [code-quality.md](./skills/06-reference/code-quality.md) | Makepad-aware refactoring | "Simplify this code" |
-| [adaptive-layout.md](./skills/06-reference/adaptive-layout.md) | Desktop/mobile responsive | "Support both desktop and mobile" |
+| troubleshooting.md | Common errors and fixes | "Apply error: no matching field" |
+| code-quality.md | Makepad-aware refactoring | "Simplify this code" |
+| adaptive-layout.md | Desktop/mobile responsive | "Support both desktop and mobile" |
 
-### [99-evolution](./skills/99-evolution/SKILL.md) - Self-Improvement
+#### [evolution](./skills/evolution/SKILL.md) - Self-Improvement
 
 | Component | Description |
 |-----------|-------------|
 | `templates/` | Pattern, shader, and troubleshooting templates |
 | `hooks/` | Auto-detection and validation hooks |
+| `references/` | Collaboration guidelines |
 
 ## Usage Examples
 
 ### Create a New Project
 ```
 User: Create a new Makepad app called "my-app" with a counter button
-Claude: [Uses 00-getting-started for scaffolding, 01-core for button/counter]
+Claude: [Uses makepad-basics for scaffolding, makepad-widgets for button/counter]
 ```
 
 ### Add a Tooltip
 ```
 User: Add a tooltip that shows user info on hover
-Claude: [Uses 04-patterns/_base/14-callout-tooltip.md for complete implementation]
+Claude: [Uses robius-widget-patterns/_base/14-callout-tooltip.md for complete implementation]
 ```
 
 ### Save a Custom Pattern
 ```
 User: Save this infinite scroll implementation as a community pattern
-Claude: [Creates 04-patterns/community/yourhandle-infinite-scroll.md]
+Claude: [Creates robius-widget-patterns/community/infinite-scroll.md]
 ```
 
 ### Fix Compilation Error
 ```
 User: Getting "no matching field: font" error
-Claude: [Uses 06-reference/troubleshooting.md to identify correct text_style syntax]
+Claude: [Uses makepad-reference/troubleshooting.md to identify correct text_style syntax]
 ```
 
 ## What You Can Build

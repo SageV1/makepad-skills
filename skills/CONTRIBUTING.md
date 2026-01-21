@@ -6,25 +6,47 @@ Thank you for contributing to the Makepad skills ecosystem! This guide explains 
 
 ```
 skills/
-├── 03-graphics/
-│   ├── _base/           # Official skills (numbered) - DO NOT modify
-│   └── community/       # Community contributions
-├── 04-patterns/
-│   ├── _base/           # Official patterns (numbered) - DO NOT modify
-│   └── community/       # Community contributions
-├── 06-reference/
-│   └── troubleshooting/ # Error/solution documentation
-└── 99-evolution/
-    ├── hooks/           # Hook scripts
-    ├── references/      # Detailed guides
-    └── templates/       # Contribution templates
+├── # Core Skills (16) - Use the corresponding skill for each topic
+├── makepad-basics/          # App structure, getting started
+├── makepad-dsl/             # DSL syntax, inheritance
+├── makepad-layout/          # Layout, sizing, alignment
+├── makepad-widgets/         # Widget components
+├── makepad-event-action/    # Event handling
+├── makepad-animation/       # Animation, states
+├── makepad-shaders/         # Shader basics
+├── makepad-platform/        # Platform support
+├── makepad-font/            # Font, typography
+├── makepad-splash/          # Splash scripting
+├── robius-*/                # 5 Robius patterns
+├── molykit/                 # AI chat toolkit
+│
+├── # Extended Skills (3) - Community contributions go here
+├── makepad-shaders/
+│   ├── _base/               # Official skills (numbered) - DO NOT modify
+│   └── community/           # Community contributions
+├── makepad-deployment/      # Build & packaging
+├── makepad-reference/
+│   └── troubleshooting/     # Error/solution documentation
+│
+├── # Note: Production patterns in robius-* skills:
+├── # robius-widget-patterns/_base/   (modal, collapsible, etc.)
+├── # robius-state-management/_base/  (theme, state machine, etc.)
+├── # robius-app-architecture/_base/  (async loading, tokio, etc.)
+│
+└── evolution/
+    ├── hooks/               # Hook scripts
+    ├── references/          # Detailed guides
+    └── templates/           # Contribution templates
 ```
 
 ## Contribution Types
 
 ### 1. Community Patterns
 
-Add your pattern to `04-patterns/community/`:
+Add your pattern to the appropriate robius-* skill's community directory:
+- Widget patterns → `robius-widget-patterns/community/`
+- State patterns → `robius-state-management/community/`
+- Async patterns → `robius-app-architecture/community/`
 
 **File naming**: `{descriptive-pattern-name}.md` (NO GitHub handle in filename)
 
@@ -33,11 +55,11 @@ Examples:
 - `infinite-scroll.md`
 - `theme-persistence.md`
 
-**Template**: Copy from `99-evolution/templates/pattern-template.md`
+**Template**: Copy from `evolution/templates/pattern-template.md`
 
 ### 2. Community Shaders/Effects
 
-Add your shader to `03-graphics/community/`:
+Add your shader to `makepad-shaders/community/`:
 
 **File naming**: `{descriptive-effect-name}.md` (NO GitHub handle in filename)
 
@@ -46,11 +68,11 @@ Examples:
 - `neon-glow.md`
 - `particle-trail.md`
 
-**Template**: Copy from `99-evolution/templates/shader-template.md`
+**Template**: Copy from `evolution/templates/shader-template.md`
 
 ### 3. Troubleshooting Entries
 
-Add error solutions to `06-reference/troubleshooting/`:
+Add error solutions to `makepad-reference/troubleshooting/`:
 
 **File naming**: `{error-short-name}.md`
 
@@ -59,15 +81,15 @@ Examples:
 - `animator-not-playing.md`
 - `shader-compile-error.md`
 
-**Template**: Copy from `99-evolution/templates/troubleshooting-template.md`
+**Template**: Copy from `evolution/templates/troubleshooting-template.md`
 
 ### 4. Hooks
 
-Add hooks to `99-evolution/hooks/`:
+Add hooks to `evolution/hooks/`:
 
 **File naming**: `{hook-purpose}.sh`
 
-**Template**: Copy from `99-evolution/templates/hook-template.md`
+**Template**: Copy from `evolution/templates/hook-template.md`
 
 **Additional requirements**: See [Hook Testing Requirements](#hook-testing-requirements) below.
 
@@ -282,7 +304,7 @@ live_design! {
 
 ## Detailed Guidelines
 
-For more details, see [Collaboration Guidelines](99-evolution/references/collaboration.md).
+For more details, see [Collaboration Guidelines](evolution/references/collaboration.md).
 
 ## Questions?
 

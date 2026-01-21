@@ -37,7 +37,7 @@ error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 print_banner() {
     echo ""
     echo -e "${BLUE}╔══════════════════════════════════════════════╗${NC}"
-    echo -e "${BLUE}║${NC}      ${GREEN}Makepad Skills Installer v2.1.3${NC}         ${BLUE}║${NC}"
+    echo -e "${BLUE}║${NC}      ${GREEN}Makepad Skills Installer v3.0.0${NC}         ${BLUE}║${NC}"
     echo -e "${BLUE}║${NC}      Agent Skills for Makepad                ${BLUE}║${NC}"
     echo -e "${BLUE}╚══════════════════════════════════════════════╝${NC}"
     echo ""
@@ -267,26 +267,87 @@ install_hooks() {
         return
     fi
 
-    local SKILLS_DIR
-    SKILLS_DIR="$(skills_dir)"
-    local HOOKS_SRC="$SKILLS_DIR/99-evolution/hooks"
-    local HOOKS_DST="$SKILLS_DIR/hooks"
+    local BASE_DIR
+    BASE_DIR="$(skills_base_dir)"
+    local HOOKS_SRC="$TEMP_DIR/makepad-skills/.claude/hooks"
+    local HOOKS_DST="$BASE_DIR/hooks"
+    local SETTINGS_SRC="$TEMP_DIR/makepad-skills/.claude/settings.json"
+    local SETTINGS_DST="$BASE_DIR/settings.json"
 
-    info "Installing hooks..."
+    info "Installing hooks to $HOOKS_DST..."
 
+    # Create hooks directory
+    mkdir -p "$HOOKS_DST"
+
+    # Copy hook scripts
     if [[ -d "$HOOKS_SRC" ]]; then
-        cp -r "$HOOKS_SRC" "$HOOKS_DST"
-        chmod +x "$HOOKS_DST"/*.sh
-        success "Hooks installed to $HOOKS_DST"
-
-        echo ""
-        warn "To enable hooks, add the following to your .claude/settings.json:"
-        echo ""
-        echo -e "${YELLOW}$(cat "$HOOKS_SRC/settings.example.json")${NC}"
-        echo ""
+        cp "$HOOKS_SRC"/*.sh "$HOOKS_DST/" 2>/dev/null || true
+        chmod +x "$HOOKS_DST"/*.sh 2>/dev/null || true
+        success "Hook scripts installed"
     else
-        warn "Hooks source not found, skipping"
+        warn "Hook scripts source not found in .claude/hooks/, skipping"
     fi
+
+    # Install settings.json (with UserPromptSubmit hook)
+    if [[ -f "$SETTINGS_SRC" ]]; then
+        if [[ -f "$SETTINGS_DST" ]]; then
+            # Backup existing settings
+            local BACKUP_SETTINGS="$SETTINGS_DST.backup.$(date +%Y%m%d%H%M%S)"
+            warn "Existing settings.json found. Backing up to $BACKUP_SETTINGS"
+            cp "$SETTINGS_DST" "$BACKUP_SETTINGS"
+        fi
+        cp "$SETTINGS_SRC" "$SETTINGS_DST"
+        success "settings.json installed with UserPromptSubmit hook"
+    else
+        warn "settings.json source not found, creating default..."
+        # Create default settings.json
+        cat > "$SETTINGS_DST" << 'SETTINGS_EOF'
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/makepad-skill-router.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre-tool.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post-bash.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+SETTINGS_EOF
+        success "Default settings.json created"
+    fi
+
+    echo ""
+    info "Hooks are now configured for auto-triggering!"
+    echo "  - UserPromptSubmit: Routes queries to appropriate skills"
+    echo "  - PreToolUse: Detects Makepad version"
+    echo "  - PostToolUse: Self-correction on errors"
 }
 
 # Print summary
@@ -302,19 +363,24 @@ print_summary() {
     echo "  Agent: $(agent_label)"
     echo "  Skills installed to: $SKILLS_DIR"
     echo ""
-    echo "  Structure:"
-    echo "  ├── 00-getting-started/  (Project setup)"
-    echo "  ├── 01-core/             (Layout, widgets, events)"
-    echo "  ├── 02-components/       (Widget gallery)"
-    echo "  ├── 03-graphics/         (Shaders, animations)"
-    echo "  │   ├── _base/           (Official skills)"
-    echo "  │   └── community/       (Your contributions)"
-    echo "  ├── 04-patterns/         (Production patterns)"
-    echo "  │   ├── _base/           (Official patterns)"
-    echo "  │   └── community/       (Your contributions)"
-    echo "  ├── 05-deployment/       (Build & package)"
-    echo "  ├── 06-reference/        (Troubleshooting)"
-    echo "  └── 99-evolution/        (Self-improvement)"
+    echo "  Structure (19 Skills):"
+    echo "  ├── # Core Skills (16)"
+    echo "  ├── makepad-basics/          (App structure)"
+    echo "  ├── makepad-dsl/             (DSL syntax)"
+    echo "  ├── makepad-layout/          (Layout system)"
+    echo "  ├── makepad-widgets/         (Widget components)"
+    echo "  ├── makepad-event-action/    (Event handling)"
+    echo "  ├── makepad-animation/       (Animation)"
+    echo "  ├── makepad-shaders/         (Shaders & visual effects)"
+    echo "  ├── makepad-platform/        (Platform support)"
+    echo "  ├── makepad-font/            (Font, typography)"
+    echo "  ├── makepad-splash/          (Splash scripting)"
+    echo "  ├── robius-*/                (5 Robius patterns with _base/)"
+    echo "  ├── molykit/                 (AI chat toolkit)"
+    echo "  ├── # Extended Skills (3)"
+    echo "  ├── makepad-deployment/      (Build & package)"
+    echo "  ├── makepad-reference/       (Troubleshooting)"
+    echo "  └── evolution/               (Self-improvement)"
     echo ""
     echo "  Quick Start:"
     if [[ "$TARGET_AGENT" == "codex" ]]; then
@@ -335,11 +401,11 @@ print_summary() {
         fi
     else
         if [[ "$WITH_HOOKS" == true ]]; then
-            echo -e "  ${YELLOW}Hooks are installed but need manual configuration.${NC}"
-            echo "  See the settings.json snippet above."
+            echo -e "  ${GREEN}Hooks are installed and auto-configured!${NC}"
+            echo "  Skills will auto-trigger based on your questions."
             echo ""
         else
-            echo "  To enable auto-evolution hooks, run:"
+            echo "  To enable auto-triggering hooks, run:"
             echo "  curl -fsSL https://raw.githubusercontent.com/ZhangHanDong/makepad-skills/main/install.sh | bash -s -- --with-hooks --target $TARGET_DIR"
             echo ""
         fi

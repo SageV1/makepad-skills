@@ -3,10 +3,10 @@
   "version": "2.1.3",
   "description": "Build cross-platform UI applications with Makepad framework in Rust. Atomic skill structure for collaborative development: _base/ (official patterns) + community/ (your contributions). Categories: 00-getting-started, 01-core, 02-components, 03-graphics (14 atomic shaders/animations), 04-patterns (14 atomic patterns), 05-deployment, 06-reference, 99-evolution (templates for contribution). Self-evolution feature captures patterns during development. Features tokio async, callout tooltips, SVG icons, and hooks-based auto-triggering.",
   "author": {
-    "name": "Robius",
-    "url": "https://github.com/project-robius"
+    "name": "ZhangHanDong",
+    "url": "https://github.com/ZhangHanDong"
   },
-  "repository": "https://github.com/project-robius/makepad-skills",
+  "repository": "https://github.com/ZhangHanDong/makepad-skills",
   "license": "MIT",
   "keywords": [
     "makepad",
