@@ -2,7 +2,7 @@
 
 [English](./README.md) | [中文](./README.zh-CN.md) | [日本語](./README.ja.md)
 
-[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](./skills/.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](./.claude-plugin/plugin.json)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 Agent skills for building cross-platform UI applications with the [Makepad](https://github.com/makepad/makepad) framework in Rust.
