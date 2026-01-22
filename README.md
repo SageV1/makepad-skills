@@ -35,26 +35,31 @@ Install via Claude Code's plugin marketplace:
 # Step 1: Add marketplace
 /plugin marketplace add ZhangHanDong/makepad-skills
 
-# Step 2: Install plugins (choose one or more)
-/plugin install makepad-full@makepad-skills-marketplace        # All skills
-/plugin install makepad-core@makepad-skills-marketplace        # Core + getting started
-/plugin install makepad-graphics@makepad-skills-marketplace    # Graphics & shaders
-/plugin install makepad-patterns@makepad-skills-marketplace    # Production patterns
-/plugin install makepad-deployment@makepad-skills-marketplace  # Platform packaging
-/plugin install makepad-reference@makepad-skills-marketplace   # API docs & troubleshooting
+# Step 2: Install the plugin (includes all 20 skills)
+/plugin install makepad-skills@makepad-skills-marketplace
 ```
 
-**Available Plugins:**
+**Using Plugin Skills:**
 
-| Plugin | Description |
-|--------|-------------|
-| `makepad-full` | Complete package with all skills |
-| `makepad-core` | Getting started, layout, widgets, events |
-| `makepad-graphics` | SDF drawing, shaders, animations |
-| `makepad-patterns` | Async, state machines, overlays, lists |
-| `makepad-deployment` | Android, iOS, WASM packaging |
-| `makepad-reference` | API docs, troubleshooting, code quality |
-| `makepad-evolution` | Self-evolution templates and hooks |
+Plugin skills are accessed via namespace format (they won't appear in `/skills` list, but can be loaded):
+
+```bash
+# Load specific skills by namespace
+/makepad-skills:makepad-widgets
+/makepad-skills:makepad-layout
+/makepad-skills:robius-widget-patterns
+
+# Or just ask questions - hooks will auto-route to relevant skills
+"How do I create a Makepad button?"
+"makepad 布局怎么居中？"
+```
+
+**Manage installed plugins:**
+
+```bash
+/plugin                  # List installed plugins
+/plugin uninstall makepad-skills@makepad-skills-marketplace  # Uninstall
+```
 
 ### Shell Script Install
 
