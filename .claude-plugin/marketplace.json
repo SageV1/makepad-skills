@@ -11,7 +11,10 @@
     {
       "name": "makepad-skills",
       "description": "20 skills for Makepad UI framework: basics, DSL, layout, widgets, events, animation, shaders, platform, font, splash, Robius patterns (app-architecture, widget-patterns, event-action, state-management, matrix-integration), MolyKit, deployment, reference, and evolution",
-      "source": "./",
+      "source": {
+        "source": "github",
+        "repo": "ZhangHanDong/makepad-skills"
+      },
       "category": "development"
     }
   ]
